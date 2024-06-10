@@ -1,0 +1,36 @@
+<div class="surface-ground h-screen w-screen flex align-items-center justify-content-center">
+    <form [formGroup]="registroFormulario" (ngSubmit)="IniciarRegistroForm()">
+      <div class="surface-card py-7 px-5 sm:px-7 shadow-2 flex flex-column w-11 sm:w-30rem" style="border-radius:14px">
+        <h1 class="font-bold text-2xl mt-0 mb-2">REGISTRATE</h1>
+        <p class="text-color-secondary mb-4">Bienvenido a la Comunidad de <strong>UTP MyBlog</strong>, registrate para continuar.</p>
+  
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-envelope"></i>
+          <input formControlName="email" type="text" pInputText placeholder="Correo Electrónico" class="w-full">
+        </span>
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-key z-2"></i>
+          <p-password formControlName="password" id="password" placeholder="Contraseña" styleClass="w-full" [inputStyle]="{paddingLeft: '2.5rem'}" inputStyleClass="w-full" [toggleMask]="true"
+            promptLabel="Introduzca una contraseña" weakLabel="La contraseña es muy simple" mediumLabel="La contraseña debe ser más compleja" strongLabel="Es una contraseña segura"></p-password>
+        </span>
+  
+        <button type="submit" pButton pRipple label="Registrarme" class="mb-3"></button>
+  
+        <div style="display: flex; justify-content: center;">
+          <a [routerLink]="['/']" class="text-color-secondary mb-3">Volver</a>
+        </div>
+  
+        <span class="text-color-secondary text-center mb-4">o puedes registrarte con</span>
+  
+        <div class="flex gap-4 align-items-center justify-content-center">
+          <a href="https://www.facebook.com" class="inline-flex flex-shrink-0 w-3rem h-3rem justify-content-center align-items-center surface-ground border-circle">
+            <i class="pi pi-facebook text-2xl text-color"></i>
+          </a>
+          <a href="https://www.google.com" class="inline-flex flex-shrink-0 w-3rem h-3rem justify-content-center align-items-center surface-ground border-circle">
+            <i class="pi pi-google text-2xl text-color"></i>
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+  

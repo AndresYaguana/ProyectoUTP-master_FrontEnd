@@ -1,0 +1,31 @@
+<div class="surface-ground h-screen w-screen flex align-items-center justify-content-center">
+    <div class="surface-card py-7 px-5 sm:px-7 shadow-2 flex flex-column w-11 sm:w-30rem" style="border-radius:14px">
+        <h1 class="font-bold text-2xl mt-0 mb-2">Código de Verificación</h1>
+        <p class="text-color-secondary mb-4">Introduce el código que te enviamos a tu correo electrónico.</p>
+
+        <div class="flex align-items-center mb-4 gap-3">
+            <p-inputNumber inputStyleClass="w-full text-center" [maxlength]="1"
+                (onInput)="focusOnNext(input2)"></p-inputNumber>
+            <p-inputNumber #input2 inputStyleClass="w-full text-center" [maxlength]="1"
+                (onInput)="focusOnNext(input3)"></p-inputNumber>
+            <p-inputNumber #input3 inputStyleClass="w-full text-center" [maxlength]="1"
+                (onInput)="focusOnNext(input4)"></p-inputNumber>
+            <p-inputNumber #input4 inputStyleClass="w-full text-center" [maxlength]="1"
+                (onInput)="focusOnNext(input5)"></p-inputNumber>
+            <p-inputNumber #input5 inputStyleClass="w-full text-center" [maxlength]="1"
+                (onInput)="focusOnNext(input6)"></p-inputNumber>
+            <p-inputNumber #input6 inputStyleClass="w-full text-center" [maxlength]="1"></p-inputNumber>
+        </div>
+
+        <button [routerLink]="['/Nuevo-Contraseña']" pButton pRipple label="Verificar" class="mb-3"></button>
+
+        <div class="mb-3">
+            <span class="text-color-secondary text-center">¿No llegó el código a tu correo? <span
+                    class="font-bold text-primary-500">Volver a enviar</span></span>
+        </div>
+
+        <div style="display: flex;justify-content: center;">
+            <p-button [routerLink]="['/Olvide-Contraseña']" [text]="true" label="Atrás"></p-button>
+        </div>
+    </div>
+</div>

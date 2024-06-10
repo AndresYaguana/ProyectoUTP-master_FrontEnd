@@ -1,0 +1,35 @@
+.layout-wrapper {
+  display: flex;
+}
+
+.layout-menu-container {
+  width: 250px;
+  transition: width 0.3s;
+}
+
+.layout-menu-container.menu-open {
+  width: 50px;
+}
+
+.layout-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.layout-user-table {
+  flex-basis: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .layout-wrapper {
+    flex-direction: column;
+  }
+
+  .layout-user-table {
+    flex-basis: 100%;
+  }
+}

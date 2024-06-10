@@ -1,0 +1,87 @@
+/* usuarios.component.scss */
+
+.container-fluid {
+  margin-top: 30px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Estilos para la tabla */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Estilos para las filas */
+tr {
+  border-bottom: 1px solid #ddd; /* Cambiamos el color a un gris más claro */
+}
+
+/* Estilos para las celdas */
+th, td {
+  padding: 12px; /* Incrementamos el padding para mejorar la legibilidad */
+  text-align: left;
+}
+
+/* Estilos para las cabeceras */
+thead {
+  background-color: #343a40; /* Usamos un tono de gris oscuro para las cabeceras */
+  color: white;
+}
+
+/* Estilos para las filas impares */
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2; /* Fondo gris claro para filas impares */
+}
+
+/* Estilos para los botones en las celdas */
+.btn {
+  margin: 0;
+  color: #fff; /* Texto blanco en los botones */
+  background-color: #007bff; /* Fondo azul para los botones */
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #0056b3; /* Cambio de color al pasar el mouse sobre los botones */
+}
+
+/* Estilos para el botón Editar */
+.btn-warning {
+  background-color: #ffc107; /* Amarillo */
+}
+
+.btn-warning:hover {
+  background-color: #e0a800; /* Cambio de color al pasar el mouse */
+}
+
+/* Estilos para el botón Eliminar */
+.btn-danger {
+  background-color: #dc3545; /* Rojo */
+}
+
+.btn-danger:hover {
+  background-color: #bd2130; /* Cambio de color al pasar el mouse */
+}
+
+/* Estilos para la burbuja de agregar nuevo usuario */
+.bubble {
+  background-color: #f0f0f0; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 20px; /* Espaciado interno */
+  max-width: 400px; /* Ancho máximo */
+  margin: 0 auto; /* Centrar horizontalmente */
+}
+
+.bubble h3 {
+  margin-top: 0; /* Elimina el margen superior del encabezado */
+}
+
+/* Eliminamos la clase .bubble-button y usamos .btn para el botón en la burbuja */

@@ -8,7 +8,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-  declarations: [AgregarUsuarioComponent],
+  declarations: [],
   imports: [
     CommonModule,
     ButtonModule,
@@ -17,6 +17,6 @@ import { ButtonModule } from 'primeng/button';
     PasswordModule,
     FormsModule
   ],
-  exports: [AgregarUsuarioComponent]
+  exports: []
 })
 export class UsuariosModule { }

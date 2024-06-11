@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuarios';
 import { UsuariosService } from '../usuarios.service';
+import { MatDialogRef } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -10,39 +12,49 @@ import { UsuariosService } from '../usuarios.service';
 export class AgregarUsuarioComponent implements OnInit {
   usuarios: Usuario[] = [];
   mostrarFormulario: boolean = false;
+  agregarFormulario: FormGroup = new FormGroup({});
   nuevoUsuario: Usuario = { id: 0, email: '', password: '' };
 
-  constructor(private usuarioServicio: UsuariosService) {}
+  constructor(
+    private fb: FormBuilder,
+    private usuarioServicio: UsuariosService, 
+    private dialogRef: MatDialogRef<AgregarUsuarioComponent>) {
+      this.agregarFormulario = this.fb.group({
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, Validators.required]
+      });
+    }
 
-  ngOnInit() {
-    this.obtenerUsuarios();
+  ngOnInit() : void{
+    this.toggleFormulario(); // Inicializa nuevoUsuario cuando se abre el modal
   }
 
-  private obtenerUsuarios() {
-    this.usuarioServicio.obtenerUsuarioLista().subscribe(
-      (datos: Usuario[]) => {
-        this.usuarios = datos;
-      }
-    );
-  }
-
-  agregarUsuario() {
-    this.usuarioServicio.agregarUsuario(this.nuevoUsuario).subscribe({
+ agregarUsuario(): void {
+  if (this.agregarFormulario.valid) {
+  const newUser: Usuario = this.agregarFormulario.value;
+    this.usuarioServicio.agregarUsuario(newUser).subscribe({
       next: (usuario) => {
         console.log('Usuario agregado:', usuario);
-        // Actualiza la lista de usuarios después de agregar uno nuevo
-        this.obtenerUsuarios(); // Asumiendo que esta función actualiza la lista de usuarios
-        // Oculta el formulario después de agregar un usuario
-        this.mostrarFormulario = false;
+        this.cerrar(); // Cierra el modal después de agregar un usuario
       },
       error: (err) => {
         console.error('Error agregando usuario:', err);
+        this.dialogRef.close();
       }
     });
+  }else {
+    console.error('Formulario no válido');
+  }
+  };
+
+  cerrar() {
+    this.dialogRef.close();
   }
 
   toggleFormulario() {
-    this.mostrarFormulario = !this.mostrarFormulario; // Alterna la visibilidad del formulario
-    this.nuevoUsuario = { id: 0, email: '', password: '' }; // Reinicia el nuevoUsuario al mostrar/ocultar el formulario
+    this.mostrarFormulario = !this.mostrarFormulario;
+    if (!this.mostrarFormulario) {
+      this.nuevoUsuario = { id: 0, email: '', password: '' };
+    }
   }
 }

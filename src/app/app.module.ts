@@ -14,10 +14,11 @@ import { UsuariosService } from './core/usuarios/usuarios.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UsuariosModule } from './core/usuarios/usuarios.module';
 import { FormsModule } from '@angular/forms';
-
+import { AgregarUsuarioComponent } from './core/usuarios/agregar-usuario/agregar-usuario.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AgregarUsuarioComponent
   ],
   imports: [
     AppLayoutModule,

@@ -12,8 +12,8 @@ import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.compo
 })
 export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
-  //mostrarFormulario: boolean = false;
-  //nuevoUsuario: Usuario = { id: 0, email: '', password: '' };
+  mostrarFormulario: boolean = false;
+  nuevoUsuario: Usuario = { id: 0, email: '', password: '' };
 
   constructor(private usuarioServicio: UsuariosService, private enrutador: Router,private dialog: MatDialog) {}
 
@@ -25,6 +25,9 @@ export class UsuariosComponent implements OnInit {
     this.usuarioServicio.obtenerUsuarioLista().subscribe(
       (datos: Usuario[]) => {
         this.usuarios = datos;
+      },
+      (error) => {
+        console.error('Error al obtener la lista de usuarios:', error);
       }
     );
   }

@@ -10,10 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./agregar-usuario.component.scss']
 })
 export class AgregarUsuarioComponent implements OnInit {
-  usuarios: Usuario[] = [];
+  
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
-  nuevoUsuario: Usuario = { id: 0, email: '', password: '' };
+  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '' };
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +54,7 @@ export class AgregarUsuarioComponent implements OnInit {
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;
     if (!this.mostrarFormulario) {
-      this.nuevoUsuario = { id: 0, email: '', password: '' };
+      this.nuevoUsuario = { idUsuario: 0, email: '', password: '' };
     }
   }
 }

@@ -5,14 +5,18 @@ import { UsuariosService } from '../usuarios/usuarios.service';
 import { Password } from 'primeng/password';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosComponent } from '../usuarios/usuarios.component';
+import { Usuario } from '../usuarios/usuarios';
+
+
 @Component({
+  //providers: [UsuariosService],
   selector: 'app-topbar',
   templateUrl: './app.topbar.component.html'
 })
-export class AppTopbarComponent {
+export class AppTopbarComponent implements OnInit{
+  usuario: string = '';
 
-  @Input() email: string = '';
-  loginFormulario: FormGroup;
+  //loginFormulario: FormGroup;
   //email:string = '';
   
   menu: MenuItem[] = [];
@@ -25,11 +29,12 @@ export class AppTopbarComponent {
 
   searchActive: boolean = false;
  
-  constructor(private fb: FormBuilder, public layoutService: LayoutService) { 
-    this.loginFormulario = this.fb.group({
-      email: [null, Validators.required]
-    });
+  constructor(private fb: FormBuilder, public layoutService: LayoutService,private usuariosServicio: UsuariosService,) {}
 
+  ngOnInit() {
+    
+    this.usuario = this.usuariosServicio.getUser();
+    console.log('Usuario actual:', this.usuario);
   }
 
 

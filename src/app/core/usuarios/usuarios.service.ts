@@ -20,16 +20,25 @@ export class UsuariosService {
     return this.clienteHttp.post(this.urlBase, usuarios);
   }
   
-  obtenerUsuarioPorId(id:number){
-    return this.clienteHttp.get<Usuario>(`${this.urlBase}/${id}`);
+  obtenerUsuarioPorId(idUsuario:number): Observable<Usuario>{
+    return this.clienteHttp.get<Usuario>(`${this.urlBase}/${idUsuario}`);
   } 
 
-  editarUsuario(id: number, usuarios: Usuario):Observable<Object>{
-    return this.clienteHttp.put(`${this.urlBase}/${id}`,usuarios);
+  editarUsuario(idUsuario: number, usuarios: Usuario):Observable<Object>{
+    return this.clienteHttp.put(`${this.urlBase}/${idUsuario}`,usuarios);
   }
 
-  eliminarUsuario(id: number):Observable<Object>{
-    return this.clienteHttp.delete(`${this.urlBase}/${id}`);
+  eliminarUsuario(idUsuario: number):Observable<Object>{
+    return this.clienteHttp.delete(`${this.urlBase}/${idUsuario}`);
   }
   
+  private currentUser: string = '';
+
+  setUser(user: string) {
+    this.currentUser = user;
+  }
+
+  getUser(): string {
+    return this.currentUser;
+  }
 }

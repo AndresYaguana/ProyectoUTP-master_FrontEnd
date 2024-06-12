@@ -15,19 +15,19 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Email</th>
-        <th scope="col">Password</th>
+        <th scope="col" >Password</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let usuario of usuarios">
-        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.idUsuario }}</td>
         <td>{{ usuario.email }}</td>
-        <td>{{ usuario.password }}</td>
+        <td>{{ maskPassword(usuario.password) }}</td>
         <td class="text-center">
           <div class="btn-group" role="group" aria-label="Acciones">
-            <button (click)="editarUsuarios(usuario.id)" class="btn btn-warning btn-sm">Editar</button>
-            <button (click)="eliminarUsuarios(usuario.id)" class="btn btn-danger btn-sm">Eliminar</button>
+            <button (click)="editarUsuarios(usuario.idUsuario, usuario)" class="btn btn-warning btn-sm">Editar</button>
+            <button (click)="eliminarUsuarios(usuario.idUsuario)" class="btn btn-danger btn-sm">Eliminar</button>
           </div>
         </td>
       </tr>

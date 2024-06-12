@@ -4,6 +4,7 @@ import { UsuariosService } from './usuarios.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 @Component({
   selector: 'app-usuarios',
@@ -13,9 +14,9 @@ import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.compo
 export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   mostrarFormulario: boolean = false;
-  nuevoUsuario: Usuario = { id: 0, email: '', password: '' };
+  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '' };
 
-  constructor(private usuarioServicio: UsuariosService, private enrutador: Router,private dialog: MatDialog) {}
+  constructor(private usuarioServicio: UsuariosService, private enrutador: Router, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.obtenerUsuarios();
@@ -24,6 +25,7 @@ export class UsuariosComponent implements OnInit {
   private obtenerUsuarios() {
     this.usuarioServicio.obtenerUsuarioLista().subscribe(
       (datos: Usuario[]) => {
+        console.log(datos); // Verificar los datos recibidos
         this.usuarios = datos;
       },
       (error) => {
@@ -32,29 +34,42 @@ export class UsuariosComponent implements OnInit {
     );
   }
 
-  editarUsuarios(id: number) {
-    this.enrutador.navigate(['editar-usuario', id]);
+  editarUsuarios(idUsuario: number, usuario: Usuario) {
+    const dialogRef = this.dialog.open(EditarUsuarioComponent, {
+      width: '500px',
+      data: { idUsuario ,usuario: this.usuarios.find(usuario => usuario.idUsuario === idUsuario) }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El modal de editar usuario se ha cerrado');
+      //console.log(idUsuario);
+      this.obtenerUsuarios();
+    });
   }
 
-  eliminarUsuarios(id: number) {
-    this.usuarioServicio.eliminarUsuario(id).subscribe(
+  eliminarUsuarios(idUsuario: number) {
+    this.usuarioServicio.eliminarUsuario(idUsuario).subscribe(
       {
         next: (datos) => this.obtenerUsuarios(),
         error: (errores: any) => console.log(errores)
       }
     )
   }
+
   abrirModalAgregarUsuario() {
     const dialogRef = this.dialog.open(AgregarUsuarioComponent, {
-      width: '500px', // Ajusta el ancho y otras propiedades según tus necesidades
-      data: {} // Puedes pasar datos al modal si es necesario
+      width: '500px',
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // Aquí puedes agregar lógica para manejar el resultado del modal si es necesario
       console.log('El modal de agregar usuario se ha cerrado');
-      // Actualiza la lista de usuarios después de cerrar el modal si es necesario
       this.obtenerUsuarios();
     });
   }
+
+  maskPassword(password: string): string {
+    return '*'.repeat(password.length);
+  }
+
 }

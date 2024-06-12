@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { UsuariosService } from '../../usuarios/usuarios.service';
 
 @Component({
   templateUrl: './auth.component.html',
@@ -14,7 +15,8 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UsuariosService
   ) {
     this.loginFormulario = this.fb.group({
       user_email: [null, Validators.required],
@@ -39,6 +41,7 @@ export class AuthComponent {
           //console.log('Enviando inicio...');
           const email = this.loginFormulario.get('user_email')!.value;
           this.userLoggedIn.emit(email);
+          this.userService.setUser(email);
           this.router.navigateByUrl('/Inicio');
           alert("Inicio de sesión exitoso");
         } else {

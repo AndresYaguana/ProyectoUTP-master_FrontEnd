@@ -1,0 +1,19 @@
+<div class="bubble-container">
+  <div class="bubble">
+    <h3 class="text-center mt-4">EDITAR USUARIO EXISTENTE: {{ usuario.idUsuario }}</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail" name="email" required [(ngModel)]="usuario.email" disabled>
+      </div>
+      <div class="mb-3">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" name="password" required [(ngModel)]="usuario.password">
+      </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-warning btn-sm me-3">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar()">Regresar</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -16,7 +16,7 @@ import { switchMap } from 'rxjs';
 export class EditarUsuarioComponent implements OnInit {
 
   idUsuario: number;
-  usuario: Usuario = { idUsuario: 0, email: '', password: '' };
+  usuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private usuariosServicio: UsuariosService,

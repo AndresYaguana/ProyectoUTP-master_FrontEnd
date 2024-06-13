@@ -14,7 +14,7 @@ import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.componen
 export class UsuariosComponent implements OnInit {
   usuarios: Usuario[] = [];
   mostrarFormulario: boolean = false;
-  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '' };
+  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:''};
 
   constructor(private usuarioServicio: UsuariosService, private enrutador: Router, private dialog: MatDialog) {}
 

@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>BIENVENIDO A CURSOS</h1>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <input type="text" class="form-control" name="filterCurso" placeholder="Buscar curso" [(ngModel)]="searchTerm" (keydown.enter)="onEnter($event)">
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let curso of filteredCursos">
+        <div class="course-card">
+          <div class="course-image">
+            <img [src]="curso.imagen" alt="{{ curso.titulo }}">
+          </div>
+          <div class="course-details">
+            <h3 class="course-title">{{ curso.titulo }}</h3>
+            <p class="course-description">{{ curso.descripcion }}</p>
+            <div class="course-info">
+              <span class="course-duration">{{ curso.duracion }}</span>
+              <span class="course-price">{{ curso.precio }}</span>
+            </div>
+            <button class="btn btn-primary">Entrar al curso</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -23,7 +23,8 @@ import { InicioComponent } from './inicio.component';
     PasswordModule,
     FormsModule,
     ReactiveFormsModule,
-    InicioRoutingModule
+    InicioRoutingModule,
+    CommonModule
   ]
 })
 export class InicioModule { }

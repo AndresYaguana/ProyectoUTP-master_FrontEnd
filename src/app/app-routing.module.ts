@@ -11,6 +11,7 @@ const routes: Routes = [
     children: [
       { path: 'Inicio', loadChildren: () => import('./pages/inicio/inicio.module').then(m => m.InicioModule)},
       { path: 'Usuarios', loadChildren: () => import('./core/usuarios/usuarios.module').then(m => m.UsuariosModule)}
+      //{ path: 'Dashboard1', loadChildren: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)}
     ]
   }
 ];

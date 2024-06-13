@@ -34,8 +34,8 @@ export class UsuariosService {
   
   private currentUser: string = '';
 
-  setUser(user: string) {
-    this.currentUser = user;
+  setUser(usuario: string) {
+    this.currentUser = usuario;
   }
 
   getUser(): string {

@@ -15,8 +15,10 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">Email</th>
-        <th scope="col" >Password</th>
-        <th scope="col"></th>
+        <th scope="col">Password</th>
+        <th scope="col">Nombres</th>
+        <th scope="col">Apellidos</th>
+        <th scope="col" class="text-center">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +26,8 @@
         <td>{{ usuario.idUsuario }}</td>
         <td>{{ usuario.email }}</td>
         <td>{{ maskPassword(usuario.password) }}</td>
+        <td>{{ usuario.nombres }}</td>
+        <td>{{ usuario.apellidos }}</td>
         <td class="text-center">
           <div class="btn-group" role="group" aria-label="Acciones">
             <button (click)="editarUsuarios(usuario.idUsuario, usuario)" class="btn btn-warning btn-sm">Editar</button>

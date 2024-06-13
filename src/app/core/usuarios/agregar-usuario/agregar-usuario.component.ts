@@ -13,7 +13,7 @@ export class AgregarUsuarioComponent implements OnInit {
   
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
-  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '' };
+  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private fb: FormBuilder,
@@ -54,7 +54,7 @@ export class AgregarUsuarioComponent implements OnInit {
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;
     if (!this.mostrarFormulario) {
-      this.nuevoUsuario = { idUsuario: 0, email: '', password: '' };
+      this.nuevoUsuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
     }
   }
 }

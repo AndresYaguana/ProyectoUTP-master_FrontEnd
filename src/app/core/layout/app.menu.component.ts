@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../service/app-layout.service';
-import { RouterLink } from '@angular/router';
+import { CursosService } from '../cursos/cursos.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,40 +10,41 @@ import { RouterLink } from '@angular/router';
 })
 export class AppMenuComponent implements OnInit {
 
-  model: any[] = [];
+  model: MenuItem[] = [];
 
   constructor(
-    public layoutService: LayoutService
+    public layoutService: LayoutService,
+    private cursoService: CursosService
   ) { }
 
   ngOnInit() {
-    this.model = [
-     /* {
-        label: 'Dashboard', icon: 'pi-security', routerLink: ['/Dashboard1'],
-        items: [
-          { label: 'Principal', icon: 'pi pi-users', routerLink: ['/Dashboard1'] }
-        ]
-      },*/
-      {
-        label: 'Cursos', icon: 'pi pi-book', routerLink: ['/dashboard-sales'],
-        items: [
-          { label: 'Matemática I', icon: 'pi pi-angle-right', routerLink: ['/dashboard-sales'] },
-          { label: 'Comunicación', icon: 'pi pi-angle-right', routerLink: ['/dashboard-sales'] }
-        ]
-      },
-      {
-        label: 'Comunidad', icon: 'pi-users', routerLink: ['/dashboard-sales'],
-        items: [
-          { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/dashboard-sales'] }
-        ]
-      },
-      {
-        label: 'Seguridad', icon: 'pi-security', routerLink: ['/dashboard-sales'],
-        items: [
-          { label: 'Usuarios', icon: 'pi pi-users', routerLink: ['/Usuarios'] }
-        ]
-      }
-    ];
+    this.cursoService.obtenerCursoLista().subscribe(cursos => {
+      const cursosMenuItems: MenuItem[] = cursos.map(curso => ({
+        label: curso.nombre,
+        icon: 'pi pi-angle-right', // icon for sub-menu items
+        routerLink: [curso.ruta],
+        items: []
+      }));
+
+      this.model = [
+        {
+          label: 'Cursos', icon: 'pi pi-bo', routerLink: ['/Cursos'],
+          items: cursosMenuItems
+        },
+        {
+          label: 'Comunidad', icon: 'pi pi-comme', routerLink: ['/dashboard-sales'],
+          items: [
+            { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/dashboard-sales'] }
+          ]
+        },
+        {
+          label: 'Seguridad', icon: 'pi pi-security', routerLink: ['/dashboard-sales'],
+          items: [
+            { label: 'Usuarios', icon: 'pi pi-users', routerLink: ['/Usuarios'] }
+          ]
+        }
+      ];
+    });
   }
 
   toggleMenu(item: any) {

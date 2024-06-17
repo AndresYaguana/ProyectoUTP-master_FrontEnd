@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Curso } from '../../core/cursos/cursos';
+import { CursosService } from '../../core/cursos/cursos.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,8 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  cursos: Course[] = [
-    { titulo: 'Curso de Angular', imagen: 'https://d33wubrfki0l68.cloudfront.net/ff72a984446f3a3cc4aa689c2c409b57344c88e1/cc4c7/assets/images/notes/angular-intro/ventajas-angular.jpg', descripcion: 'Aprende a construir aplicaciones web dinámicas con Angular.', duracion: "", precio: "" },
+  cursos: Curso[] = []
+   /* { nombre: 'Curso de Angular', imagen: 'https://d33wubrfki0l68.cloudfront.net/ff72a984446f3a3cc4aa689c2c409b57344c88e1/cc4c7/assets/images/notes/angular-intro/ventajas-angular.jpg', descripcion: 'Aprende a construir aplicaciones web dinámicas con Angular.', duracion: "", precio: "" },
     { titulo: 'Curso de React', imagen: 'https://th.bing.com/th/id/R.67d796a518f6f81d9a9776ec5faf6e8d?rik=g5CilO3F2Xx7CA&pid=ImgRaw&r=0', descripcion: 'Aprende a construir aplicaciones web dinámicas con React.', duracion: "", precio: "" },
     { titulo: 'Curso de Java', imagen: 'https://www.mytaskpanel.com/wp-content/uploads/2023/04/consulting-blog-09.webp', descripcion: 'Aprende a construir aplicaciones web dinámicas con Java.', duracion: "", precio: "" },
     { titulo: 'Curso de PHP', imagen: 'https://ultahost.com/blog/wp-content/uploads/2023/02/Best-Web-Servers-for-PHP-Development-800x451.png', descripcion: 'Aprende a construir aplicaciones web dinámicas con PHP.', duracion: "", precio: "" },
@@ -16,20 +18,23 @@ export class InicioComponent implements OnInit {
     { titulo: 'Curso de JavaScript', imagen: 'https://bairesdev.mo.cloudinary.net/blog/2023/08/What-Is-JavaScript-Used-For.jpg?tx=w_1024,q_auto', descripcion: 'Aprende a construir aplicaciones web dinámicas con JavaScript.', duracion: "", precio: "" },
     
     // Añade más cursos aquí
-  ];
+  ];*/
 
-  filteredCursos: Course[] = [];
+  filteredCursos: Curso[] = [];
   searchTerm: string = '';
 
-  constructor() { }
+  constructor(private cursoService: CursosService) { }
 
   ngOnInit(): void {
-    this.filteredCursos = this.cursos; // Mostrar inicialmente todos los cursos
+    this.cursoService.obtenerCursoLista().subscribe(cursos => {
+      this.cursos = cursos;
+      this.filteredCursos = this.cursos; // Mostrar inicialmente todos los cursos
+    });
   }
 
   filterCourses(): void {
-    this.filteredCursos = this.cursos.filter(course => {
-      const lowercaseTitle = course.titulo.toLowerCase();
+    this.filteredCursos = this.cursos.filter(curso => {
+      const lowercaseTitle = curso.nombre.toLowerCase();
       return lowercaseTitle.includes(this.searchTerm.toLowerCase());
     });
   }
@@ -43,10 +48,3 @@ export class InicioComponent implements OnInit {
   
   }
 
-interface Course {
-  titulo: string;
-  imagen: string;
-  descripcion: string;
-  duracion: string;
-  precio: string;
-}

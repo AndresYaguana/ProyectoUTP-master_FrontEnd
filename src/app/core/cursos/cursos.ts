@@ -3,6 +3,7 @@ export interface Curso {
     nombre: string,
     ruta: string;
     urlImage: string;
+    descripcion: string;
     habilitado: boolean;
     creadoPor: string;
     fechaCreacion: string;

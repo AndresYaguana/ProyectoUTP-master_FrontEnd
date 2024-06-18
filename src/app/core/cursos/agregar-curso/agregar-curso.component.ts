@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Usuario } from '../../usuarios/usuarios';
 
 @Component({
   selector: 'app-agregar-curso',
@@ -12,11 +13,11 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './agregar-curso.component.scss'
 })
 export class AgregarCursoComponent implements OnInit {
-  
+    usuario: Usuario [] = [];
     mostrarFormulario: boolean = false;
     agregarFormulario: FormGroup = new FormGroup({});
-    nuevoCurso: Curso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
-  
+    nuevoCurso: Curso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+
     constructor(
       private fb: FormBuilder,
       private cursoServicio: CursosService, 
@@ -40,6 +41,7 @@ export class AgregarCursoComponent implements OnInit {
         nombre: this.agregarFormulario.value.nombre,
         ruta: this.agregarFormulario.value.ruta,
         urlImage: this.agregarFormulario.value.urlImage,
+        descripcion:this.agregarFormulario.value.descripcion,
         habilitado: this.agregarFormulario.value.habilitado,
         creadoPor: 'U20244131', // Aquí deberías obtener el usuario actual o asignar un valor adecuado
         fechaCreacion: new Date().toISOString(), // Puedes usar new Date() para obtener la fecha actual
@@ -69,7 +71,7 @@ export class AgregarCursoComponent implements OnInit {
     toggleFormulario() {
       this.mostrarFormulario = !this.mostrarFormulario;
       if (!this.mostrarFormulario) {
-        this.nuevoCurso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+        this.nuevoCurso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
       }
     }
 }

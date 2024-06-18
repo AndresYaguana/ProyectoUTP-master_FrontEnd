@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from './core/layout/app.layout.component';
 import { CursosComponent } from './core/cursos/cursos.component';
+import { EditarCursoComponent } from './core/cursos/editar-curso/editar-curso.component';
 
 const routes: Routes = [
   {
@@ -13,7 +14,8 @@ const routes: Routes = [
       { path: 'Inicio', loadChildren: () => import('./pages/inicio/inicio.module').then(m => m.InicioModule)},
       { path: 'Usuarios', loadChildren: () => import('./core/usuarios/usuarios.module').then(m => m.UsuariosModule)},
       { path: 'Cursos', loadChildren: () => import('./core/cursos/cursos.module').then(m => m.CursosModule)},
-      { path: 'curso/:ruta', component: CursosComponent }
+      { path: 'curso/:ruta', component: CursosComponent },
+      {path:'editar-curso/:id', component: EditarCursoComponent}
       //{ path: 'Dashboard1', loadChildren: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent)}
     ]
   }

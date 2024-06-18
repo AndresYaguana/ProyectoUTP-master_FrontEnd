@@ -31,7 +31,7 @@
           <td>{{ curso.fechaCreacion }}</td>
           <td class="text-center">
             <div class="btn-group" role="group" aria-label="Acciones">
-              <button  class="btn btn-warning btn-sm">Editar</button>
+              <button  (click)="editarCursos(curso.idCurso)" class="btn btn-warning btn-sm">Editar</button>
               <button  class="btn btn-danger btn-sm">Eliminar</button>
             </div>
           </td>

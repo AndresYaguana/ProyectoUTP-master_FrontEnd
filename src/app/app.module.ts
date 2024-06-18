@@ -17,11 +17,13 @@ import { AgregarUsuarioComponent } from './core/usuarios/agregar-usuario/agregar
 import { CursosService } from './core/cursos/cursos.service';
 import { CursosModule } from './core/cursos/agregar-curso/agregar-curso.module';
 import { AgregarCursoComponent } from './core/cursos/agregar-curso/agregar-curso.component';
+import { EditarCursoComponent } from './core/cursos/editar-curso/editar-curso.component';
 @NgModule({
   declarations: [
     AppComponent,
     AgregarUsuarioComponent,
-    AgregarCursoComponent
+    AgregarCursoComponent,
+    EditarCursoComponent
   ],
   imports: [
     AppLayoutModule,

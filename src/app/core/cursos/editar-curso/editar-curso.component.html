@@ -1,0 +1,30 @@
+<!-- src/app/editar-curso/editar-curso.component.html -->
+
+<div class="bubble-container">
+    <div class="bubble">
+    <h3 class="text-center mt-4">EDITAR USUARIO EXISTENTE</h3>
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label>Nombre:</label>
+        <input [(ngModel)]="curso.nombre" name="nombre" required>
+      </div>
+      <div>
+        <label>Ruta:</label>
+        <input [(ngModel)]="curso.ruta" name="ruta" required>
+      </div>
+      <div>
+        <label>URL de Imagen:</label>
+        <input [(ngModel)]="curso.urlImage" name="urlImage" required>
+      </div>
+      <div>
+        <label>Descripción:</label>
+        <textarea [(ngModel)]="curso.descripcion" name="descripcion" required></textarea>
+      </div>
+      <div>
+        <label>Habilitado:</label>
+        <input type="checkbox" [(ngModel)]="curso.habilitado" name="habilitado">
+      </div>
+      <button type="submit">Guardar</button>
+    </form>
+  </div>
+  

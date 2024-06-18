@@ -4,6 +4,7 @@ import { CursosService } from './cursos.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarCursoComponent } from './agregar-curso/agregar-curso.component';
+import { EditarCursoComponent } from './editar-curso/editar-curso.component';
 
 @Component({
   selector: 'app-cursos',
@@ -23,13 +24,13 @@ export class CursosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.obtenerUsuarios();
+    this.obtenerCursos();
     this.route.paramMap.subscribe(params => {
       this.ruta = params.get('ruta') || ''; // Asignar un valor por defecto si es nulo
     });
   }
 
-  private obtenerUsuarios() {
+  private obtenerCursos() {
     this.cursoServicio.obtenerCursoLista().subscribe(
       (datos: Curso[]) => {
         console.log(datos); // Verificar los datos recibidos
@@ -41,6 +42,8 @@ export class CursosComponent implements OnInit {
     );
   }
 
+  
+
   abrirModalAgregarCurso() {
     const dialogRef = this.dialog.open(AgregarCursoComponent, {
       width: '500px',
@@ -49,8 +52,24 @@ export class CursosComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal de agregar usuario se ha cerrado');
-      this.obtenerUsuarios();
+      this.obtenerCursos();
     });
   }
 
+  /*editarCurso(id: number){
+    this.enrutador.navigate(['editar-curso',id]);
+  }*/
+
+  editarCursos(idCurso: number) {
+    const dialogRef = this.dialog.open(EditarCursoComponent, {
+      width: '500px',
+      data: { idCurso }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El modal de editar usuario se ha cerrado');
+      //console.log(idUsuario);
+      this.obtenerCursos();
+    });
+  }
 }

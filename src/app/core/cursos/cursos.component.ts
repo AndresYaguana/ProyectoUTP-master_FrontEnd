@@ -63,13 +63,14 @@ export class CursosComponent implements OnInit {
   editarCursos(idCurso: number) {
     const dialogRef = this.dialog.open(EditarCursoComponent, {
       width: '500px',
-      data: { idCurso }
+      data: { idCurso: idCurso }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('El modal de editar usuario se ha cerrado');
-      //console.log(idUsuario);
-      this.obtenerCursos();
+    console.log('El modal de editar curso se ha cerrado');
+    if (result) {
+      this.obtenerCursos();  // Refresh the list of courses if the edit was successful
+    }
     });
   }
 }

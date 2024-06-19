@@ -20,15 +20,15 @@ export class CursosService {
       return this.clienteHttp.post(this.urlBase, cursos);
     }
     
-    obtenerCursoPorId(idCurso:number): Observable<Curso>{
-      return this.clienteHttp.get<Curso>(`${this.urlBase}/${idCurso}`);
+    obtenerCursoPorId(id:number): Observable<Curso>{
+      return this.clienteHttp.get<Curso>(`${this.urlBase}/${id}`);
     } 
   
-    editarCurso(idCurso: number, cursos: Curso):Observable<Object>{
-      return this.clienteHttp.put(`${this.urlBase}/${idCurso}`,cursos);
+    editarCurso(id: number, cursos: Curso):Observable<Object>{
+      return this.clienteHttp.put(`${this.urlBase}/${id}`,cursos);
     }
   
-    eliminarCurso(idCurso: number):Observable<Object>{
-      return this.clienteHttp.delete(`${this.urlBase}/${idCurso}`);
+    eliminarCurso(id: number):Observable<Object>{
+      return this.clienteHttp.delete(`${this.urlBase}/${id}`);
     }
 }

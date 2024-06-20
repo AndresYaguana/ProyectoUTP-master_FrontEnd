@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { switchMap } from 'rxjs';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-editar-usuario',
@@ -15,7 +16,7 @@ import { switchMap } from 'rxjs';
 })
 export class EditarUsuarioComponent implements OnInit {
 
-  idUsuario: number;
+  idUsuario: number = 0;
   usuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
@@ -23,45 +24,54 @@ export class EditarUsuarioComponent implements OnInit {
     private ruta: ActivatedRoute,
     private enrutador: Router,
     private dialogRef: MatDialogRef<EditarUsuarioComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { idUsuario: number, usuario: Usuario } // Injectar datos
-  ) {
-    this.idUsuario = data.idUsuario; // Asignar idUsuario desde los datos
-    this.usuario = data.usuario; // Asignar el usuario desde los datos
-    console.log('Datos del usuario:', this.usuario); // Verificar datos del usuario
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.idUsuario = data.idUsuario;
   }
 
   ngOnInit() {
-    this.ruta.params.pipe(
-      switchMap(params => {
-        this.idUsuario = params['idUsuario'];
-        return this.usuariosServicio.obtenerUsuarioPorId(this.idUsuario);
-      })
-    ).subscribe({
-      next: (usuario: Usuario) => {
-        this.usuario = usuario;
-        console.log('Usuario obtenido:', this.usuario); // Verificar usuario obtenido
-      },
-      error: (error: any) => console.error(error)
+    this.usuariosServicio.obtenerUsuarioPorId(this.idUsuario).subscribe(
+    {
+      next: (datos) => this.usuario = datos,
+      error: (error: any) => console.log(error)// Verificar usuario obtenido
     });
   }
 
   onSubmit() {
-    console.log('Guardando usuario:', this.usuario); // Verificar datos del usuario antes de guardar
+    console.log('Editando usuario:', this.usuario); // Verificar datos del usuario antes de guardar
     this.guardarUsuario();
   }
 
   guardarUsuario() {
-    this.usuariosServicio.editarUsuario(this.idUsuario, this.usuario).subscribe({
-      next: () => {
-        console.log('Usuario guardado exitosamente.');
-        this.irUsuarioLista();
-      },
-      error: (errores) => console.error('Error al guardar usuario:', errores)
+    Swal.fire({
+      title: "¿Quieres guardar los cambios?",
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonText: "Guardar",
+      //showConfirmButton: false,
+      //timer: 1500
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuariosServicio.editarUsuario(this.idUsuario, this.usuario).subscribe({
+          next: (datos) => {
+            Swal.fire("Guardado!", "El Usuario ha sido guardado exitosamente.", "success");
+            console.log('Usuario guardado exitosamente.');
+            this.cerrar();
+            this.irUsuarioLista();
+          },
+          error: (errores) => {
+            Swal.fire("Error", "Hubo un problema al guardar el usuario.", "error");
+            console.error('Error al guardar usuario:', errores);
+          }
+        });
+      } else if (result.isDenied) {
+        Swal.fire("Cambios no guardados", "", "info");
+      }
     });
   }
+  
 
   irUsuarioLista() {
-    this.enrutador.navigate(['/usuarios']);
+    this.enrutador.navigate(['/Usuarios']);
   }
 
   cerrar() {

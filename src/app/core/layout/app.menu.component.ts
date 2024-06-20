@@ -18,34 +18,38 @@ export class AppMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cursoService.obtenerCursoLista().subscribe(cursos => {
+    /*this.cursoService.obtenerCursoLista().subscribe(cursos => {
       const cursosMenuItems: MenuItem[] = cursos.map(curso => ({
         label: curso.nombre,
         icon: 'pi pi-angle-right', // icon for sub-menu items
         routerLink: [curso.ruta],
         items: []
-      }));
+      }));*/
 
       this.model = [
         {
-          label: 'Cursos', icon: 'pi pi-bo', routerLink: ['/Cursos'],
-          items: cursosMenuItems
-        },
-        {
-          label: 'Comunidad', icon: 'pi pi-comme', routerLink: ['/dashboard-sales'],
+          label: 'Cursos', icon: 'pi pi-bo', routerLink: ['/.'],
+          //items: cursosMenuItems
           items: [
-            { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/dashboard-sales'] }
+            { label: 'Dashboard', icon: 'pi pi-boo', routerLink: ['/Dashboard'] },
+            { label: 'Gestion Cursos', icon: 'pi pi-book', routerLink: ['/Cursos'] }
           ]
         },
         {
-          label: 'Seguridad', icon: 'pi pi-security', routerLink: ['/dashboard-sales'],
+          label: 'Comunidad', icon: 'pi pi-comme', routerLink: ['/.'],
+          items: [
+            { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/.'] }
+          ]
+        },
+        {
+          label: 'Seguridad', icon: 'pi pi-security', routerLink: ['/.'],
           items: [
             { label: 'Usuarios', icon: 'pi pi-users', routerLink: ['/Usuarios'] }
           ]
         }
       ];
-    });
   }
+
 
   toggleMenu(item: any) {
     this.layoutService.isMenuOpen = !this.layoutService.isMenuOpen;

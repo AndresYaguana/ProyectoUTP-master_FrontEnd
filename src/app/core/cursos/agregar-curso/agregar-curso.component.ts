@@ -4,19 +4,16 @@ import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Usuario } from '../../usuarios/usuarios';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-curso',
-  //standalone: true,
-  //imports: [],
   templateUrl: './agregar-curso.component.html',
   styleUrl: './agregar-curso.component.scss'
 })
 export class AgregarCursoComponent implements OnInit {
-    usuario: Usuario [] = [];
     mostrarFormulario: boolean = false;
     agregarFormulario: FormGroup = new FormGroup({});
-    nuevoCurso: Curso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
     constructor(
       private fb: FormBuilder,
@@ -25,44 +22,51 @@ export class AgregarCursoComponent implements OnInit {
       this.agregarFormulario = this.fb.group({
           nombre: [null, [Validators.required]],
           ruta: [null, Validators.required],
-          urlImage: ['', Validators.required],
+          urlImage: [null, Validators.required],
           habilitado: [false, Validators.required]
         });
       }
   
     ngOnInit() : void{
-      this.toggleFormulario(); // Inicializa nuevoUsuario cuando se abre el modal
+      this.toggleFormulario();
     }
   
-   agregarCurso(): void {
+  agregarCurso(): void {
     if (this.agregarFormulario.valid) {
-      const nuevoCurso: Curso = {
-        idCurso: 0, // Debes asignar un valor válido para idCurso
-        nombre: this.agregarFormulario.value.nombre,
-        ruta: this.agregarFormulario.value.ruta,
-        urlImage: this.agregarFormulario.value.urlImage,
-        descripcion:this.agregarFormulario.value.descripcion,
-        habilitado: this.agregarFormulario.value.habilitado,
-        creadoPor: 'U20244131', // Aquí deberías obtener el usuario actual o asignar un valor adecuado
-        fechaCreacion: new Date().toISOString(), // Puedes usar new Date() para obtener la fecha actual
-        modificadoPor: '', // Inicializar según tus necesidades
-        fechaModificacion: '' // Inicializar según tus necesidades
-      };
-      this.cursoServicio.agregarCurso(nuevoCurso).subscribe({
-        next: (curso) => {
-          console.log('Curso agregado:', curso);
-          //this.agregarFormulario.reset();
-          this.cerrar(); // Cierra el modal después de agregar un usuario
-        },
-        error: (err) => {
-          console.error('Error agregando usuario:', err);
-          this.dialogRef.close();
+      Swal.fire({
+        title: "¿Quieres agregar este nuevo curso?",
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: "Guardar",
+        //showConfirmButton: false,
+        //timer: 1500
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const nuevoCurso: Curso = {
+            ...this.agregarFormulario.value,
+            creadoPor: 'U20244131',
+            fechaCreacion: new Date().toISOString()
+          };
+          this.cursoServicio.agregarCurso(nuevoCurso).subscribe({
+            next: (curso) => {
+              console.log('Curso agregado:', curso);
+              Swal.fire("Agregado!", "El Curso ha sido agregado exitosamente.", "success");
+              this.cerrar();
+            },
+            error: (err) => {
+              console.error('Error agregando curso:', err);
+              Swal.fire("Error", "Error al agregar curso", "error");
+              this.dialogRef.close();
+            }
+          });
+        } else if (result.isDenied) {
+          Swal.fire("Cambios no guardados", "", "info");
         }
       });
-    }else {
+    } else {
       console.error('Formulario no válido. Verifica los campos.');
     }
-    };
+  }
   
     cerrar() {
       this.dialogRef.close();
@@ -70,8 +74,5 @@ export class AgregarCursoComponent implements OnInit {
   
     toggleFormulario() {
       this.mostrarFormulario = !this.mostrarFormulario;
-      if (!this.mostrarFormulario) {
-        this.nuevoCurso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
-      }
     }
 }

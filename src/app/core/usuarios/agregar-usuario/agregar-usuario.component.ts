@@ -3,6 +3,7 @@ import { Usuario } from '../usuarios';
 import { UsuariosService } from '../usuarios.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -13,7 +14,7 @@ export class AgregarUsuarioComponent implements OnInit {
   
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
-  nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+  //nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private fb: FormBuilder,
@@ -21,31 +22,55 @@ export class AgregarUsuarioComponent implements OnInit {
     private dialogRef: MatDialogRef<AgregarUsuarioComponent>) {
       this.agregarFormulario = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
-        password: [null, Validators.required]
+        password: [null, Validators.required],
+        nombres: [null, Validators.required],
+        apellidos: [null, Validators.required],
+        tipoUsuario: [null, Validators.required],
+        urlFoto: [null, Validators.required],
+        universidad: [null, Validators.required],
+        habilitado: [false, Validators.required]
       });
     }
 
   ngOnInit() : void{
-    this.toggleFormulario(); // Inicializa nuevoUsuario cuando se abre el modal
+    this.toggleFormulario();
   }
 
  agregarUsuario(): void {
   if (this.agregarFormulario.valid) {
-  const newUser: Usuario = this.agregarFormulario.value;
-    this.usuarioServicio.agregarUsuario(newUser).subscribe({
+    Swal.fire({
+      title: "¿Quieres agregar este nuevo usuario?",
+      showDenyButton: false,
+      showCancelButton: true,
+      //confirmButtonText: "Guardar",
+      //timer: 1500
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevoUsuario: Usuario = {
+        ...this.agregarFormulario.value,
+        creadoPor: 'U20244131', 
+        fechaCreacion: new Date().toISOString()
+    };
+    this.usuarioServicio.agregarUsuario(nuevoUsuario).subscribe({
       next: (usuario) => {
         console.log('Usuario agregado:', usuario);
-        this.cerrar(); // Cierra el modal después de agregar un usuario
+        Swal.fire("Agregado!", "El Usuario ha sido agregado exitosamente.", "success");
+        this.cerrar();
       },
       error: (err) => {
         console.error('Error agregando usuario:', err);
+        Swal.fire("Error", "Error al agregar usuario", "error");
         this.dialogRef.close();
       }
     });
-  }else {
-    console.error('Formulario no válido');
+  } else if (result.isDenied) {
+    Swal.fire("Cambios no guardados", "", "info");
   }
-  };
+});
+} else {
+console.error('Formulario no válido. Verifica los campos.');
+}
+}
 
   cerrar() {
     this.dialogRef.close();
@@ -53,8 +78,5 @@ export class AgregarUsuarioComponent implements OnInit {
 
   toggleFormulario() {
     this.mostrarFormulario = !this.mostrarFormulario;
-    if (!this.mostrarFormulario) {
-      this.nuevoUsuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
-    }
   }
 }

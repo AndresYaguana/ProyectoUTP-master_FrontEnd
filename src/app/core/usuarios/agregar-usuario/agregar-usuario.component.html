@@ -5,16 +5,44 @@
     <div class="mb-3">
       <label for="inputEmail" class="form-label">Email</label>
       <input type="email" class="form-control" id="inputEmail" formControlName="email" required>
-      <!-- Agregar mensaje de error -->
       <div *ngIf="agregarFormulario.get('email').errors?.required && agregarFormulario.get('email').touched" class="text-danger">Email es requerido.</div>
       <div *ngIf="agregarFormulario.get('email').errors?.email && agregarFormulario.get('email').touched" class="text-danger">Email no válido.</div>
     </div>
     <div class="mb-3">
       <label for="inputPassword" class="form-label">Password</label>
       <input type="password" class="form-control" id="inputPassword" formControlName="password" required>
-      <!-- Agregar mensaje de error -->
       <div *ngIf="agregarFormulario.get('password').errors?.required && agregarFormulario.get('password').touched" class="text-danger">Contraseña es requerida.</div>
     </div>
+    <div class="mb-3">
+      <label for="inputNombres" class="form-label">Nombres</label>
+      <input type="text" class="form-control" id="inputNombres" formControlName="nombres" required>
+      <div *ngIf="agregarFormulario.get('nombres').errors?.required && agregarFormulario.get('nombres').touched" class="text-danger">Nombres es requerido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="inputApellidos" class="form-label">Apellidos</label>
+      <input type="text" class="form-control" id="inputApellidos" formControlName="apellidos" required>
+      <div *ngIf="agregarFormulario.get('apellidos').errors?.required && agregarFormulario.get('apellidos').touched" class="text-danger">Apellidos es requerido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
+      <input type="number" class="form-control" id="inputTipoUsuario" formControlName="tipoUsuario" required>
+      <div *ngIf="agregarFormulario.get('tipoUsuario').errors?.required && agregarFormulario.get('tipoUsuario').touched" class="text-danger">Tipo de usuario es requerido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="inputUrlFoto" class="form-label">URL de Foto</label>
+      <input type="text" class="form-control" id="inputUrlFoto" formControlName="urlFoto" required>
+      <div *ngIf="agregarFormulario.get('urlFoto').errors?.required && agregarFormulario.get('urlFoto').touched" class="text-danger">URL de foto es requerido.</div>
+    </div>
+    <div class="mb-3">
+      <label for="inputUniversidad" class="form-label">Universidad</label>
+      <input type="text" class="form-control" id="inputUniversidad" formControlName="universidad" required>
+      <div *ngIf="agregarFormulario.get('universidad').errors?.required && agregarFormulario.get('universidad').touched" class="text-danger">Universidad es requerida.</div>
+    </div>
+    <div class="mb-3">
+      <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+      <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado">
+    </div>
+
     <button type="submit" class="btn btn-primary">Agregar</button>
     <button type="button" class="btn btn-secondary" (click)="cerrar()">Cancelar</button>
   </form>

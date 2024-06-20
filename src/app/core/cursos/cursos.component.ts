@@ -12,9 +12,10 @@ import { EditarCursoComponent } from './editar-curso/editar-curso.component';
   styleUrls: ['./cursos.component.scss']
 })
 export class CursosComponent implements OnInit {
-  ruta: string = ''; // Inicializar la propiedad
+  ruta: string = ''; 
   cursos: Curso[] = [];
-  mostrarFormulario: boolean = false;
+  //mostrarFormulario: boolean = false;
+  nuevoCurso: Curso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private cursoServicio: CursosService,
@@ -26,14 +27,14 @@ export class CursosComponent implements OnInit {
   ngOnInit() {
     this.obtenerCursos();
     this.route.paramMap.subscribe(params => {
-      this.ruta = params.get('ruta') || ''; // Asignar un valor por defecto si es nulo
+      this.ruta = params.get('ruta') || '';
     });
   }
 
   private obtenerCursos() {
     this.cursoServicio.obtenerCursoLista().subscribe(
       (datos: Curso[]) => {
-        console.log(datos); // Verificar los datos recibidos
+        console.log(datos);
         this.cursos = datos;
       },
       (error) => {
@@ -41,8 +42,6 @@ export class CursosComponent implements OnInit {
       }
     );
   }
-
-  
 
   abrirModalAgregarCurso() {
     const dialogRef = this.dialog.open(AgregarCursoComponent, {
@@ -69,7 +68,7 @@ export class CursosComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     console.log('El modal de editar curso se ha cerrado');
     if (result) {
-      this.obtenerCursos();  // Refresh the list of courses if the edit was successful
+      this.obtenerCursos();
     }
     });
   }

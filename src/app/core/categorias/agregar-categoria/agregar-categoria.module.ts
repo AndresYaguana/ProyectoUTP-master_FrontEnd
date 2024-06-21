@@ -1,7 +1,6 @@
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -13,9 +12,8 @@ import { ButtonModule } from 'primeng/button';
       ButtonModule,
       InputTextModule,
       RippleModule,
-      FormsModule,
-      ReactiveFormsModule,
+      FormsModule
     ],
     exports: []
   })
-  export class CursosModule { }
+  export class CategoriasModule { }

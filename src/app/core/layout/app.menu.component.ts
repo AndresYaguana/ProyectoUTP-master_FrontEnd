@@ -31,7 +31,7 @@ export class AppMenuComponent implements OnInit {
           label: 'Cursos', icon: 'pi pi-bo', routerLink: ['/.'],
           //items: cursosMenuItems
           items: [
-            { label: 'Dashboard', icon: 'pi pi-boo', routerLink: ['/Dashboard'] },
+            { label: 'Gestion Categorias', icon: 'pi pi-sitemap', routerLink: ['/Categorias'] },
             { label: 'Gestion Cursos', icon: 'pi pi-book', routerLink: ['/Cursos'] }
           ]
         },
@@ -44,7 +44,7 @@ export class AppMenuComponent implements OnInit {
         {
           label: 'Seguridad', icon: 'pi pi-security', routerLink: ['/.'],
           items: [
-            { label: 'Usuarios', icon: 'pi pi-users', routerLink: ['/Usuarios'] }
+            { label: 'Usuarios', icon: 'pi-user-plus', routerLink: ['/Usuarios'] }
           ]
         }
       ];

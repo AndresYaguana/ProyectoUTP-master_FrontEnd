@@ -1,0 +1,41 @@
+
+<div class="container-fluid">
+    <div class="text-center mt-4">
+      <h3> GESTION DE CATEGORIAS - CURSOS </h3>
+    </div>
+  
+    <!-- Botón para abrir el modal de agregar nuevo usuario -->
+   <div class="text-center mt-4">
+      <button class="btn btn-primary" (click)="abrirModalAgregarCategoria()">Agregar Categoria</button>
+   </div>
+  
+    <!-- Tabla de usuarios -->
+    <table class="table table-striped table-hover mt-3">
+      <thead class="table-dark">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Ruta</th>
+          <th scope="col">Usuario</th>
+          <th scope="col">Creador</th>
+          <th scope="col" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categoria of categorias">
+          <td>{{ categoria.idCategoria }}</td>
+          <td>{{ categoria.nombre }}</td>
+          <td>{{ categoria.ruta }}</td>
+          <td>{{ categoria.creadoPor }}</td>
+          <td>{{ categoria.fechaCreacion }}</td>
+          <td class="text-center">
+            <div class="btn-group" role="group" aria-label="Acciones">
+              <button  (click)="editarCategorias(categoria.idCategoria)" class="btn btn-warning btn-sm">Editar</button>
+              <button  (click)="eliminarCategorias(categoria.idCategoria)"class="btn btn-danger btn-sm">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

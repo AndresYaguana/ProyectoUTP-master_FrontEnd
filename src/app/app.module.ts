@@ -3,12 +3,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './core/layout/app.layout.module';
-import { AuthComponent } from './core/Login/auth/auth.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/Login/auth/auth.service';
-import { RegistroComponent } from './core/Login/registro/registro.component';
 import { UsuariosService } from './core/usuarios/usuarios.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UsuariosModule } from './core/usuarios/usuarios.module';
@@ -18,12 +15,18 @@ import { CursosService } from './core/cursos/cursos.service';
 import { CursosModule } from './core/cursos/agregar-curso/agregar-curso.module';
 import { AgregarCursoComponent } from './core/cursos/agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from './core/cursos/editar-curso/editar-curso.component';
+import { CategoriasModule } from './core/categorias/categorias.module';
+import { CategoriasService } from './core/categorias/categorias.service';
+import { EditarCategoriaComponent } from './core/categorias/editar-categoria/editar-categoria.component';
+import { AgregarCategoriaComponent } from './core/categorias/agregar-categoria/agregar-categoria.component';
 @NgModule({
   declarations: [
     AppComponent,
     AgregarUsuarioComponent,
     AgregarCursoComponent,
-    EditarCursoComponent
+    EditarCursoComponent,
+    EditarCategoriaComponent,
+    AgregarCategoriaComponent
   ],
   imports: [
     AppLayoutModule,
@@ -33,12 +36,14 @@ import { EditarCursoComponent } from './core/cursos/editar-curso/editar-curso.co
     UsuariosModule,
     MatDialogModule,
     FormsModule,
-    CursosModule
+    CursosModule,
+    CategoriasModule
   ],
   providers: [
     AuthService,
     UsuariosService,
     CursosService,
+    CategoriasService,
 
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],

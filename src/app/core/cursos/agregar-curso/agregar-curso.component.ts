@@ -1,45 +1,61 @@
+// agregar-curso.component.ts
 import { Component, OnInit } from '@angular/core';
-import { EmailValidator, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
+import { CategoriasService } from '/Cursos/ProyectoUTP-master/src/app/core/categorias/categorias.service'; // Make sure the service name matches
 import { MatDialogRef } from '@angular/material/dialog';
-import { Usuario } from '../../usuarios/usuarios';
 import Swal from 'sweetalert2';
+import { Categoria } from '/Cursos/ProyectoUTP-master/src/app//core/categorias/categorias';
 
 @Component({
   selector: 'app-agregar-curso',
   templateUrl: './agregar-curso.component.html',
-  styleUrl: './agregar-curso.component.scss'
+  styleUrls: ['./agregar-curso.component.scss']
 })
 export class AgregarCursoComponent implements OnInit {
-    mostrarFormulario: boolean = false;
-    agregarFormulario: FormGroup = new FormGroup({});
+  mostrarFormulario: boolean = false;
+  agregarFormulario: FormGroup = new FormGroup({});
+  categorias: Categoria[] = [];
 
-    constructor(
-      private fb: FormBuilder,
-      private cursoServicio: CursosService, 
-      private dialogRef: MatDialogRef<AgregarCursoComponent>) {
-      this.agregarFormulario = this.fb.group({
-          nombre: [null, [Validators.required]],
-          ruta: [null, Validators.required],
-          urlImage: [null, Validators.required],
-          habilitado: [false, Validators.required]
-        });
-      }
-  
-    ngOnInit() : void{
-      this.toggleFormulario();
-    }
-  
+  constructor(
+    private fb: FormBuilder,
+    private cursoServicio: CursosService, 
+    private categoriasServicio: CategoriasService, // Update the service name if needed
+    private dialogRef: MatDialogRef<AgregarCursoComponent>
+  ) {
+    this.agregarFormulario = this.fb.group({
+      idCategoria: [0, [Validators.required]],
+      nombre: [null, [Validators.required]],
+      ruta: [null, Validators.required],
+      urlImage: [null, Validators.required],
+      descripcion: [null, [Validators.required]],
+      habilitado: [false, [Validators.required]]
+    });
+  }
+
+  ngOnInit(): void {
+    this.obtenerCategorias();
+    this.toggleFormulario();
+  }
+
+  obtenerCategorias(): void {
+    this.categoriasServicio.obtenerCategoriaLista().subscribe({
+      next: (categorias) => {
+        console.log('Categorias obtenidas:', categorias); // Verify the data
+        this.categorias = categorias;
+      },
+      error: (err) => console.error('Error obteniendo categorías:', err)
+    });
+  }
+
   agregarCurso(): void {
     if (this.agregarFormulario.valid) {
       Swal.fire({
         title: "¿Quieres agregar este nuevo curso?",
         showDenyButton: false,
         showCancelButton: true,
-        confirmButtonText: "Guardar",
-        //showConfirmButton: false,
-        //timer: 1500
+        confirmButtonText: "Guardar"
       }).then((result) => {
         if (result.isConfirmed) {
           const nuevoCurso: Curso = {
@@ -67,12 +83,12 @@ export class AgregarCursoComponent implements OnInit {
       console.error('Formulario no válido. Verifica los campos.');
     }
   }
-  
-    cerrar() {
-      this.dialogRef.close();
-    }
-  
-    toggleFormulario() {
-      this.mostrarFormulario = !this.mostrarFormulario;
-    }
+
+  cerrar() {
+    this.dialogRef.close();
+  }
+
+  toggleFormulario() {
+    this.mostrarFormulario = !this.mostrarFormulario;
+  }
 }

@@ -14,7 +14,7 @@ import Swal from 'sweetalert2'
   styleUrl: './editar-curso.component.scss'
 })
 export class EditarCursoComponent {
-  curso: Curso = {idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion: '', habilitado: false, creadoPor: '', fechaCreacion: '', modificadoPor: '', fechaModificacion: ''};
+  curso: Curso = {idCurso: 0, idCategoria: 0, nombre: '', ruta: '', urlImage: '', descripcion: '', habilitado: false, creadoPor: '', fechaCreacion: '', modificadoPor: '', fechaModificacion: ''};
   id:number = 0;
   //dialogRef: any;
 

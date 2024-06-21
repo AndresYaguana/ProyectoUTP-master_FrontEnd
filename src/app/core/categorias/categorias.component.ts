@@ -94,7 +94,7 @@ export class CategoriasComponent {
             console.error('Error eliminando categoria:', errores);
             Swal.fire({
               title: "Error",
-              text: "Hubo un problema al eliminar el categoria.",
+              text: "Hubo un problema al eliminar la categoria.",
               icon: "error"
             });
           }

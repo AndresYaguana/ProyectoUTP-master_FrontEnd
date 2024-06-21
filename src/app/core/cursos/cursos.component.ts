@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarCursoComponent } from './agregar-curso/agregar-curso.component';
 import { EditarCursoComponent } from './editar-curso/editar-curso.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cursos',
@@ -14,8 +15,7 @@ import { EditarCursoComponent } from './editar-curso/editar-curso.component';
 export class CursosComponent implements OnInit {
   ruta: string = ''; 
   cursos: Curso[] = [];
-  //mostrarFormulario: boolean = false;
-  nuevoCurso: Curso = { idCurso: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+  nuevoCurso: Curso = { idCurso: 0, idCategoria: 0, nombre: '', ruta: '', urlImage: '', descripcion:'', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private cursoServicio: CursosService,
@@ -48,23 +48,17 @@ export class CursosComponent implements OnInit {
       width: '500px',
       data: {}
     });
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('El modal de agregar usuario se ha cerrado');
       this.obtenerCursos();
     });
   }
 
-  /*editarCurso(id: number){
-    this.enrutador.navigate(['editar-curso',id]);
-  }*/
-
   editarCursos(idCurso: number) {
     const dialogRef = this.dialog.open(EditarCursoComponent, {
       width: '500px',
       data: { idCurso: idCurso }
     });
-
     dialogRef.afterClosed().subscribe(result => {
     console.log('El modal de editar curso se ha cerrado');
     if (result) {
@@ -72,4 +66,40 @@ export class CursosComponent implements OnInit {
     }
     });
   }
+
+
+  eliminarCursos(idCurso: number) {
+    Swal.fire({
+      title: "¿Estás seguro de Eliminar el Curso?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ¡eliminarlo!"
+    }).then((result) => {
+      if (result.isConfirmed) {  
+    this.cursoServicio.eliminarCurso(idCurso).subscribe({
+        next: (datos) => {
+          this.obtenerCursos();
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El Curso ha sido eliminado.",
+            icon: "success"
+          });
+        },
+        error: (errores) => {
+          console.error('Error eliminando Curso:', errores);
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un problema al eliminar el Curso.",
+            icon: "error"
+          });
+        }
+      });
+    }
+  });
+}
+
+
 }

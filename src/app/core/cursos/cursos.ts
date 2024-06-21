@@ -1,5 +1,7 @@
+
 export interface Curso {
     idCurso: number;
+    idCategoria: number;
     nombre: string,
     ruta: string;
     urlImage: string;
@@ -11,3 +13,4 @@ export interface Curso {
     fechaModificacion: string;
 
   }
+ 

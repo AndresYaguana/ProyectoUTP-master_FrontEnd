@@ -19,6 +19,7 @@ import { CategoriasModule } from './core/categorias/categorias.module';
 import { CategoriasService } from './core/categorias/categorias.service';
 import { EditarCategoriaComponent } from './core/categorias/editar-categoria/editar-categoria.component';
 import { AgregarCategoriaComponent } from './core/categorias/agregar-categoria/agregar-categoria.component';
+import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { AgregarCategoriaComponent } from './core/categorias/agregar-categoria/a
     MatDialogModule,
     FormsModule,
     CursosModule,
-    CategoriasModule
+    CategoriasModule,
+    BrowserModule
   ],
   providers: [
     AuthService,

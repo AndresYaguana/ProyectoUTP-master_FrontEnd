@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarUsuarioComponent } from './agregar-usuario/agregar-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -69,11 +70,35 @@ export class UsuariosComponent implements OnInit {
 
 
   eliminarUsuarios(idUsuario: number) {
-    this.usuarioServicio.eliminarUsuario(idUsuario).subscribe(
-      {
-        next: (datos) => this.obtenerUsuarios(),
-        error: (errores: any) => console.log(errores)
-      }
-    )
-  }
+    Swal.fire({
+      title: "¿Estás seguro de Eliminar el Usuario?",
+      text: "¡No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, ¡eliminarlo!"
+    }).then((result) => {
+      if (result.isConfirmed) {  
+    this.usuarioServicio.eliminarUsuario(idUsuario).subscribe({
+        next: (datos) => {
+          this.obtenerUsuarios();
+          Swal.fire({
+            title: "¡Eliminado!",
+            text: "El Usuario ha sido eliminado.",
+            icon: "success"
+          });
+        },
+        error: (errores) => {
+          console.error('Error eliminando Usuario:', errores);
+          Swal.fire({
+            title: "Error",
+            text: "Hubo un problema al eliminar el Usuario.",
+            icon: "error"
+          });
+        }
+      });
+    }
+  });
+}
 }

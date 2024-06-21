@@ -21,7 +21,7 @@ export class AgregarCursoComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private cursoServicio: CursosService, 
-    private categoriasServicio: CategoriasService, // Update the service name if needed
+    private categoriasServicio: CategoriasService,
     private dialogRef: MatDialogRef<AgregarCursoComponent>
   ) {
     this.agregarFormulario = this.fb.group({
@@ -51,6 +51,7 @@ export class AgregarCursoComponent implements OnInit {
 
   agregarCurso(): void {
     if (this.agregarFormulario.valid) {
+      console.log(this.agregarFormulario.value);
       Swal.fire({
         title: "¿Quieres agregar este nuevo curso?",
         showDenyButton: false,

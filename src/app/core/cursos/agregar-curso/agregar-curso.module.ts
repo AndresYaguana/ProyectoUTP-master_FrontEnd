@@ -14,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
       InputTextModule,
       RippleModule,
       FormsModule,
-      ReactiveFormsModule,
+      ReactiveFormsModule
     ],
     exports: []
   })

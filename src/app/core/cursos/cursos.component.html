@@ -32,7 +32,7 @@
         <td class="text-center">
           <div class="btn-group" role="group" aria-label="Acciones">
             <button  (click)="editarCursos(curso.idCurso)" class="btn btn-warning btn-sm">Editar</button>
-            <button  class="btn btn-danger btn-sm">Eliminar</button>
+            <button  (click)="eliminarCursos(curso.idCurso)" class="btn btn-danger btn-sm">Eliminar</button>
           </div>
         </td>
       </tr>

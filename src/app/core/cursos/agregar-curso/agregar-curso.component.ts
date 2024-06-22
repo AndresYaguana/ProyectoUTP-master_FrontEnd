@@ -62,7 +62,8 @@ export class AgregarCursoComponent implements OnInit {
           const nuevoCurso: Curso = {
             ...this.agregarFormulario.value,
             creadoPor: 'U20244131',
-            fechaCreacion: new Date().toISOString()
+            fechaCreacion: new Date().toISOString(),
+            categoria: { idCategoria: this.agregarFormulario.value.idCategoria } 
           };
           this.cursoServicio.agregarCurso(nuevoCurso).subscribe({
             next: (curso) => {

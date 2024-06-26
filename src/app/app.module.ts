@@ -20,6 +20,10 @@ import { CategoriasService } from './core/categorias/categorias.service';
 import { EditarCategoriaComponent } from './core/categorias/editar-categoria/editar-categoria.component';
 import { AgregarCategoriaComponent } from './core/categorias/agregar-categoria/agregar-categoria.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { DashboardCursoPipe } from './core/cursos/dashboard-curso/dashboard-curso.pipe';
+import { DashboardCursoComponent } from './core/cursos/dashboard-curso/dashboard-curso.component';
+import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-categoriacursos/dashboard-categoriacursos.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +31,10 @@ import { BrowserModule } from '@angular/platform-browser';
     AgregarCursoComponent,
     EditarCursoComponent,
     EditarCategoriaComponent,
-    AgregarCategoriaComponent
+    AgregarCategoriaComponent,
+    DashboardCursoPipe,
+    DashboardCursoComponent,
+    DashboardCategoriacursosComponent
   ],
   imports: [
     AppLayoutModule,

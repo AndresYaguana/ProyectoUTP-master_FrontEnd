@@ -1,17 +1,24 @@
 <ul class="layout-menu">
-    <li *ngFor="let item of model; let i = index;" class="menu-item">
-      <a [routerLink]="item.routerLink">
-        <i class="pi" [ngClass]="item.icon"></i>
-        <span>{{ item.label }}</span>
-      </a>
-      <ul *ngIf="item.items && item.items.length > 0">
-        <li *ngFor="let subItem of item.items" class="submenu-item">
-          <a [routerLink]="subItem.routerLink">
-            <i class="pi" [ngClass]="subItem.icon"></i>
-            <span>{{ subItem.label }}</span>
-          </a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-  
+  <li *ngFor="let item of model; let i = index;" class="menu-item">
+    <a (click)="toggleSubMenu(item)" [routerLink]="item.routerLink">
+      <i class="pi" [ngClass]="item.icon"></i>
+      <span>{{ item.label }}</span>
+    </a>
+    <ul *ngIf="item.items && item.items.length > 0" [ngClass]="{'expanded': item.expanded}" class="submenu">
+      <li *ngFor="let subItem of item.items" class="submenu-item">
+        <a (click)="toggleSubMenu(subItem)" [routerLink]="subItem.routerLink">
+          <i class="pi" [ngClass]="subItem.icon"></i>
+          <span>{{ subItem.label }}</span>
+        </a>
+        <ul *ngIf="subItem.items && subItem.items.length > 0" [ngClass]="{'expanded': subItem.expanded}" class="submenu">
+          <li *ngFor="let subSubItem of subItem.items" class="submenu-item">
+            <a [routerLink]="subSubItem.routerLink">
+              <i class="pi" [ngClass]="subSubItem.icon"></i>
+              <span>{{ subSubItem.label }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

@@ -2,8 +2,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { AppLayoutComponent } from './core/layout/app.layout.component';
 import { CursosComponent } from './core/cursos/cursos.component';
-import { EditarCursoComponent } from './core/cursos/editar-curso/editar-curso.component';
 import { CategoriasComponent } from './core/categorias/categorias.component';
+import { DashboardCursoComponent } from './core/cursos/dashboard-curso/dashboard-curso.component';
+import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-categoriacursos/dashboard-categoriacursos.component';
 
 const routes: Routes = [
   {
@@ -12,13 +13,14 @@ const routes: Routes = [
   {
     path: '', component: AppLayoutComponent,
     children: [
-      { path: 'Inicio', loadChildren: () => import('./pages/inicio/inicio.module').then(m => m.InicioModule)},
-      { path: 'Usuarios', loadChildren: () => import('./core/usuarios/usuarios.module').then(m => m.UsuariosModule)},
-      { path: 'Cursos', loadChildren: () => import('./core/cursos/cursos.module').then(m => m.CursosModule)},
+      { path: 'Inicio', loadChildren: () => import('./pages/inicio/inicio.module').then(m => m.InicioModule) },
+      { path: 'Usuarios', loadChildren: () => import('./core/usuarios/usuarios.module').then(m => m.UsuariosModule) },
+      { path: 'Cursos', loadChildren: () => import('./core/cursos/cursos.module').then(m => m.CursosModule) },
       { path: 'curso/:ruta', component: CursosComponent },
-      { path: 'Categorias', loadChildren: () => import('./core/categorias/categorias.module').then(m => m.CategoriasModule)},
+      { path: 'Categorias', loadChildren: () => import('./core/categorias/categorias.module').then(m => m.CategoriasModule) },
       { path: 'categoria/:ruta', component: CategoriasComponent },
-      //{ path: 'Dashboard', loadChildren: () => import('.//dashboard/dashboard.component').then(m => m.DashboardComponent)}
+      { path: 'Dashboard-Curso', component: DashboardCursoComponent },
+      { path: 'categorias/:idCategoria', component: DashboardCategoriacursosComponent }
     ]
   }
 ];
@@ -27,5 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-
 export class AppRoutingModule { }

@@ -31,4 +31,9 @@ export class CursosService {
     eliminarCurso(idCurso: number):Observable<Object>{
       return this.clienteHttp.delete(`${this.urlBase}/${idCurso}`);
     }
+
+    obtenerCursosPorCategoria(idCategoria: number): Observable<Curso[]> {
+      return this.clienteHttp.get<Curso[]>(`${this.urlBase}/categoria/${idCategoria}`);
+    }
+
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { LayoutService } from '../service/app-layout.service';
-import { CursosService } from '../cursos/cursos.service';
+import { CategoriasService } from '../categorias/categorias.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -10,48 +11,65 @@ import { CursosService } from '../cursos/cursos.service';
 })
 export class AppMenuComponent implements OnInit {
 
-  model: MenuItem[] = [];
+  model: any[] = [];
 
   constructor(
     public layoutService: LayoutService,
-    private cursoService: CursosService
+    private categoriaService: CategoriasService,
+    private router: Router 
   ) { }
 
   ngOnInit() {
-    /*this.cursoService.obtenerCursoLista().subscribe(cursos => {
-      const cursosMenuItems: MenuItem[] = cursos.map(curso => ({
-        label: curso.nombre,
-        icon: 'pi pi-angle-right', // icon for sub-menu items
-        routerLink: [curso.ruta],
-        items: []
-      }));*/
+    this.categoriaService.obtenerCategoriaLista().subscribe(categorias => {
+      const categoriasMenuItems: MenuItem[] = categorias.map(categoria => ({
+        label: categoria.nombre,
+        icon: 'pi pi-slack',
+        routerLink: ['/categorias', categoria.idCategoria],
+        items: [],
+        expanded: false // Agregar propiedad expanded
+      }));
 
       this.model = [
         {
-          label: 'Cursos', icon: 'pi pi-bo', routerLink: ['/.'],
-          //items: cursosMenuItems
+          label: 'Cursos', icon: 'pi pi-book', routerLink: ['/pi-book'],
           items: [
-            { label: 'Gestion Categorias', icon: 'pi pi-sitemap', routerLink: ['/Categorias'] },
-            { label: 'Gestion Cursos', icon: 'pi pi-book', routerLink: ['/Cursos'] }
-          ]
+            { label: 'Dashboard', icon: 'pi-warehouse', routerLink: ['/Dashboard-Curso'] },
+            { label: 'Gestion Cursos', icon: 'pi-address-book', routerLink: ['/Cursos'] },
+            { label: 'Categorias', icon: 'pi pi-bookmark-fill', routerLink: ['/pi-book'],
+              items: [
+                { label: 'Gestion Categorias', icon: 'pi pi-plus', routerLink: ['/Categorias'] },
+                ...categoriasMenuItems
+              ],
+              expanded: false // Agregar propiedad expanded
+            }
+          ],
+          expanded: false // Agregar propiedad expanded
         },
         {
-          label: 'Comunidad', icon: 'pi pi-comme', routerLink: ['/.'],
+          label: 'Comunidad', icon: 'pi pi-comments', routerLink: ['/pi-book'],
           items: [
-            { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/.'] }
-          ]
+            { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/pi-book'] }
+          ],
+          expanded: false // Agregar propiedad expanded
         },
         {
-          label: 'Seguridad', icon: 'pi pi-security', routerLink: ['/.'],
+          label: 'Seguridad', icon: 'pi pi-shield', routerLink: ['/pi-book'],
           items: [
-            { label: 'Usuarios', icon: 'pi-user-plus', routerLink: ['/Usuarios'] }
-          ]
+            { label: 'Usuarios', icon: 'pi pi-user-plus', routerLink: ['/Usuarios'] }
+          ],
+          expanded: false // Agregar propiedad expanded
         }
       ];
+    });
   }
 
-
-  toggleMenu(item: any) {
-    this.layoutService.isMenuOpen = !this.layoutService.isMenuOpen;
+  toggleSubMenu(item: any) {
+    item.expanded = !item.expanded;
   }
+
+  mostrarCursosPorCategoria(categoriaItem: MenuItem) {
+    const idCategoria = categoriaItem.routerLink[1];
+    this.router.navigate(['/categorias', idCategoria]);
+  }
+  
 }

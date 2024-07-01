@@ -23,6 +23,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { DashboardCursoPipe } from './core/cursos/dashboard-curso/dashboard-curso.pipe';
 import { DashboardCursoComponent } from './core/cursos/dashboard-curso/dashboard-curso.component';
 import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-categoriacursos/dashboard-categoriacursos.component';
+import { TipoUsuarioModule } from './core/usuarios/tipo-usuario/tipo-usuario.module';
+import { TipoUsuarioService } from './core/usuarios/tipo-usuario/tipo-usuario.service';
+import { AgregarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/agregar-tipo-usuario/agregar-tipo-usuario.component';
+import { EditarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/editar-tipo-usuario/editar-tipo-usuario.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,9 @@ import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-c
     AgregarCategoriaComponent,
     DashboardCursoPipe,
     DashboardCursoComponent,
-    DashboardCategoriacursosComponent
+    DashboardCategoriacursosComponent,
+    AgregarTipoUsuarioComponent,
+    EditarTipoUsuarioComponent
   ],
   imports: [
     AppLayoutModule,
@@ -46,14 +52,15 @@ import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-c
     FormsModule,
     CursosModule,
     CategoriasModule,
-    BrowserModule
+    BrowserModule,
+    TipoUsuarioModule
   ],
   providers: [
     AuthService,
     UsuariosService,
     CursosService,
     CategoriasService,
-
+    TipoUsuarioService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

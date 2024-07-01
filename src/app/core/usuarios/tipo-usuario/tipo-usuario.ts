@@ -1,7 +1,7 @@
-export interface Categoria {
-    idCategoria: number;
+export interface TipoUsuario {
+    idTipousuario: number;
     nombre: string;
-    ruta: string;
+    permisos: string[];
     habilitado: boolean;
     creadoPor: string;
     fechaCreacion: string;

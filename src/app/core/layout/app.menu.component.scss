@@ -13,6 +13,7 @@
       text-decoration: none;
       cursor: pointer;
       font-size: 1em; // Aumentar el tamaño de fuente
+      left: 0;
     }
 
     .pi {
@@ -26,11 +27,11 @@
       padding: 0;
       margin: 0;
       position: relative;
-      left: 0;
+      left: 1em;
       top: 0;
       white-space: nowrap;
       background: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 
       .submenu-item {
         a {

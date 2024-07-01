@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
-import { CategoriasService } from '/Cursos/ProyectoUTP-master/src/app/core/categorias/categorias.service'; // Make sure the service name matches
+import { CategoriasService } from '../../categorias/categorias.service'; // Make sure the service name matches
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
-import { Categoria } from '/Cursos/ProyectoUTP-master/src/app//core/categorias/categorias';
+import { Categoria } from '../../categorias/categorias';
 
 @Component({
   selector: 'app-agregar-curso',

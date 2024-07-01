@@ -32,13 +32,4 @@ export class UsuariosService {
     return this.clienteHttp.delete(`${this.urlBase}/${idUsuario}`);
   }
   
-  private currentUser: string = '';
-
-  setUser(usuario: string) {
-    this.currentUser = usuario;
-  }
-
-  getUser(): string {
-    return this.currentUser;
-  }
 }

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppMenuComponent implements OnInit {
 
-  model: any[] = [];
+  model: MenuItem[] = [];
 
   constructor(
     public layoutService: LayoutService,
@@ -26,44 +26,50 @@ export class AppMenuComponent implements OnInit {
         icon: 'pi pi-slack',
         routerLink: ['/categorias', categoria.idCategoria],
         items: [],
-        expanded: false // Agregar propiedad expanded
+        expanded: false
       }));
 
       this.model = [
         {
           label: 'Cursos', icon: 'pi pi-book', routerLink: ['/pi-book'],
           items: [
-            { label: 'Dashboard', icon: 'pi-warehouse', routerLink: ['/Dashboard-Curso'] },
-            { label: 'Gestion Cursos', icon: 'pi-address-book', routerLink: ['/Cursos'] },
-            { label: 'Categorias', icon: 'pi pi-bookmark-fill', routerLink: ['/pi-book'],
+            { label: 'Dashboard', icon: 'pi pi-warehouse', routerLink: ['/Dashboard-Curso'] },
+            { label: 'Gestión Cursos', icon: 'pi pi-address-book', routerLink: ['/Cursos'] },
+            { label: 'Categorías', icon: 'pi pi-bookmark-fill', routerLink: ['/pi-book'],
               items: [
-                { label: 'Gestion Categorias', icon: 'pi pi-plus', routerLink: ['/Categorias'] },
+                { label: 'Gestión Categorías', icon: 'pi pi-plus', routerLink: ['/Categorias'] },
                 ...categoriasMenuItems
               ],
-              expanded: false // Agregar propiedad expanded
+              expanded: false
             }
           ],
-          expanded: false // Agregar propiedad expanded
+          expanded: false
         },
         {
           label: 'Comunidad', icon: 'pi pi-comments', routerLink: ['/pi-book'],
           items: [
             { label: 'Foro', icon: 'pi pi-comments', routerLink: ['/pi-book'] }
           ],
-          expanded: false // Agregar propiedad expanded
+          expanded: false
         },
         {
           label: 'Seguridad', icon: 'pi pi-shield', routerLink: ['/pi-book'],
           items: [
-            { label: 'Usuarios', icon: 'pi pi-user-plus', routerLink: ['/Usuarios'] }
+            { label: 'Usuarios', icon: 'pi-users', routerLink: ['/pi-book'],
+              items: [
+                { label: 'Gestión Usuarios', icon: 'pi-user-plus', routerLink: ['/Usuarios'] },
+                { label: 'Tipos Usuarios', icon: 'pi-user-edit', routerLink: ['/TiposUsuarios'] }
+              ],
+              expanded: false
+            }
           ],
-          expanded: false // Agregar propiedad expanded
+          expanded: false
         }
       ];
     });
   }
 
-  toggleSubMenu(item: any) {
+  toggleSubMenu(item: MenuItem) {
     item.expanded = !item.expanded;
   }
 
@@ -71,5 +77,4 @@ export class AppMenuComponent implements OnInit {
     const idCategoria = categoriaItem.routerLink[1];
     this.router.navigate(['/categorias', idCategoria]);
   }
-  
 }

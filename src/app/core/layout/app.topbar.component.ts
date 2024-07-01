@@ -1,42 +1,37 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ColorScheme, LayoutService } from '../service/app-layout.service';
-import { UsuariosService } from '../usuarios/usuarios.service';
-import { Password } from 'primeng/password';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UsuariosComponent } from '../usuarios/usuarios.component';
+import { AuthService } from '../Login/auth/auth.service';
 import { Usuario } from '../usuarios/usuarios';
 
-
 @Component({
-  //providers: [UsuariosService],
   selector: 'app-topbar',
   templateUrl: './app.topbar.component.html'
 })
-export class AppTopbarComponent implements OnInit{
-  usuario: string = '';
+export class AppTopbarComponent implements OnInit {
+  usuario: Usuario | null = null;
 
-  //loginFormulario: FormGroup;
-  //email:string = '';
-  
   menu: MenuItem[] = [];
-
   varmodo: boolean = false;
 
   @ViewChild('searchinput') searchInput!: ElementRef;
-
   @ViewChild('menubutton') menuButton!: ElementRef;
 
   searchActive: boolean = false;
- 
-  constructor(private fb: FormBuilder, public layoutService: LayoutService,private usuariosServicio: UsuariosService,) {}
+
+  constructor(
+    public layoutService: LayoutService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    
-    this.usuario = this.usuariosServicio.getUser();
+    this.usuario = this.authService.getLoggedInUser();
     console.log('Usuario actual:', this.usuario);
   }
 
+  tienePermiso(permiso: string): boolean {
+    return this.authService.tienePermiso(permiso); // Llamar al método del servicio de autenticación
+  }
 
   onClickMode() {
     if (this.varmodo == false) {
@@ -113,5 +108,9 @@ export class AppTopbarComponent implements OnInit{
 
   get tabs(): MenuItem[] {
     return this.layoutService.tabs;
+  }
+
+  cerrarSesion(): void {
+    this.authService.logout();
   }
 }

@@ -4,6 +4,8 @@ import { UsuariosService } from '../usuarios.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { TipoUsuario } from '../tipo-usuario/tipo-usuario';
+import { TipoUsuarioService } from '../tipo-usuario/tipo-usuario.service';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -14,18 +16,20 @@ export class AgregarUsuarioComponent implements OnInit {
   
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
-  //nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+  tipousuarios: TipoUsuario[] = []; //nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
 
   constructor(
     private fb: FormBuilder,
     private usuarioServicio: UsuariosService, 
+    
+    private tipoUsuariosServicio: TipoUsuarioService,
     private dialogRef: MatDialogRef<AgregarUsuarioComponent>) {
       this.agregarFormulario = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
         password: [null, Validators.required],
         nombres: [null, Validators.required],
         apellidos: [null, Validators.required],
-        tipoUsuario: [null, Validators.required],
+        idTipousuario: [0, [Validators.required]],
         urlFoto: [null, Validators.required],
         universidad: [null, Validators.required],
         habilitado: [false, Validators.required]
@@ -33,11 +37,23 @@ export class AgregarUsuarioComponent implements OnInit {
     }
 
   ngOnInit() : void{
+    this.obtenerTipoUsuarios();
     this.toggleFormulario();
+  }
+
+  obtenerTipoUsuarios(): void {
+    this.tipoUsuariosServicio.obtenerTipousuarioLista().subscribe({
+      next: (tipousuarios) => {
+        console.log('Tipos Usuarios obtenidos:', tipousuarios); // Verify the data
+        this.tipousuarios = tipousuarios;
+      },
+      error: (err) => console.error('Error obteniendo Tipos Usuarios:', err)
+    });
   }
 
  agregarUsuario(): void {
   if (this.agregarFormulario.valid) {
+    console.log(this.agregarFormulario.value);
     Swal.fire({
       title: "¿Quieres agregar este nuevo usuario?",
       showDenyButton: false,
@@ -49,7 +65,8 @@ export class AgregarUsuarioComponent implements OnInit {
         const nuevoUsuario: Usuario = {
         ...this.agregarFormulario.value,
         creadoPor: 'U20244131', 
-        fechaCreacion: new Date().toISOString()
+        fechaCreacion: new Date().toISOString(),
+        tipousuario: { idTipousuario: this.agregarFormulario.value.idTipousuario }
     };
     this.usuarioServicio.agregarUsuario(nuevoUsuario).subscribe({
       next: (usuario) => {

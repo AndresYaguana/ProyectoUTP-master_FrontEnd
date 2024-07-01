@@ -20,7 +20,8 @@ const routes: Routes = [
       { path: 'Categorias', loadChildren: () => import('./core/categorias/categorias.module').then(m => m.CategoriasModule) },
       { path: 'categoria/:ruta', component: CategoriasComponent },
       { path: 'Dashboard-Curso', component: DashboardCursoComponent },
-      { path: 'categorias/:idCategoria', component: DashboardCategoriacursosComponent }
+      { path: 'categorias/:idCategoria', component: DashboardCategoriacursosComponent },
+      { path: 'TiposUsuarios', loadChildren: () => import('./core/usuarios/tipo-usuario/tipo-usuario.module').then(m => m.TipoUsuarioModule) },
     ]
   }
 ];

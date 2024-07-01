@@ -24,9 +24,11 @@
         <div *ngIf="agregarFormulario.get('apellidos')?.errors?.['required'] && agregarFormulario.get('apellidos')?.touched" class="text-danger">Apellidos es requerido.</div>
       </div>
       <div class="mb-3">
-        <label for="inputTipoUsuario" class="form-label">Tipo de Usuario</label>
-        <input type="number" class="form-control" id="inputTipoUsuario" formControlName="tipoUsuario" required>
-        <div *ngIf="agregarFormulario.get('tipoUsuario')?.errors?.['required'] && agregarFormulario.get('tipoUsuario')?.touched" class="text-danger">Tipo de usuario es requerido.</div>
+        <label for="inputTipoUsuario" class="form-label">Tipo Usuario</label>
+        <select class="form-control" id="inputTipoUsuario" formControlName="idTipousuario">
+          <option *ngFor="let tipoUsuario of tipousuarios" [value]="tipoUsuario.idTipousuario">{{ tipoUsuario.nombre }}</option>
+        </select>
+        <div *ngIf="agregarFormulario.get('idTipousuario')?.errors?.['required'] && agregarFormulario.get('idTipousuario')?.touched" class="text-danger">Tipo Usuario es requerido.</div>
       </div>
       <div class="mb-3">
         <label for="inputUrlFoto" class="form-label">URL de Foto</label>

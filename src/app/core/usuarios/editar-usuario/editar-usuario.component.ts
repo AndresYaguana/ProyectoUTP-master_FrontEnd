@@ -17,7 +17,7 @@ import Swal from 'sweetalert2'
 export class EditarUsuarioComponent implements OnInit {
 
   idUsuario: number = 0;
-  usuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+  usuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',idTipousuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'',tipousuario: { idTipousuario: 0, nombre: '',permisos:[], habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' } };
 
   constructor(
     private usuariosServicio: UsuariosService,

@@ -26,36 +26,38 @@
         </div>
     </div>
 
-    <div class="topbar-profile">
+    <div class="topbar-profile" *ngIf="usuario">
         <button class="topbar-profile-button p-link" type="button" pStyleClass="@next" enterClass="hidden"
-            enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
-            <img alt="avatar" src="https://w7.pngwing.com/pngs/169/546/png-transparent-face-with-tears-of-joy-emoji-person-happiness-smile-emoji-head-smiley-anger.png">
+                enterActiveClass="scalein" leaveToClass="hidden" leaveActiveClass="fadeout" [hideOnOutsideClick]="true">
+            <img alt="avatar" [src]="usuario.urlFoto ? usuario.urlFoto : 'https://w7.pngwing.com/pngs/169/546/png-transparent-face-with-tears-of-joy-emoji-person-happiness-smile-emoji-head-smiley-anger.png'" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
             <span class="profile-details">
-                <span class="profile-name">Andres Yaguana</span>
-                <span class="profile-job">{{usuario}}</span> 
+                <span class="profile-name">{{ usuario.nombres }} {{ usuario.apellidos }}</span>
+                <span class="profile-job">{{ usuario.email }}</span> 
             </span>
             <i class="pi pi-angle-down"></i>
         </button>
-        <ul
-            class="list-none p-3 m-0 border-round shadow-2 hidden absolute surface-overlay origin-top w-full sm:w-12rem mt-2 right-0 top-auto">
-            <li>
-                <a pRipple
-                    class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+        <ul class="list-none p-3 m-0 border-round shadow-2 hidden absolute surface-overlay origin-top w-full sm:w-12rem mt-2 right-0 top-auto">
+            <li *ngIf="usuario && tienePermiso('VER_PERFIL')">
+                <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
                     <i class="pi pi-user mr-3"></i>
-                    <span>Perfil</span>
+                    <a [routerLink]="['/Perfil']">Perfil</a>
                 </a>
-                <a pRipple
-                    class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+            </li>
+            <li *ngIf="usuario && tienePermiso('VER_NOTIFICACIONES')">
+                <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
                     <i class="pi pi-bell mr-3"></i>
-                    <span>Notificaciones</span>
+                    <a [routerLink]="['/Notificaciones']">Notificaciones</a>
                 </a>
-                <a pRipple
-                class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
-                <i class="pi pi-question-circle mr-3"></i>
-                <span>Ayuda</span>
-            </a>
-                <a pRipple
-                    class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+            </li>
+            <li *ngIf="usuario && tienePermiso('VER_AYUDA')">
+                <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
+                    <i class="pi pi-question-circle mr-3"></i>
+                    <span>Ayuda</span>
+                    <a [routerLink]="['/Ayuda']">Ayuda</a>
+                </a>
+            </li>
+            <li *ngIf="usuario && tienePermiso('CERRAR_SESION')">
+                <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer" (click)="cerrarSesion()">
                     <i class="pi pi-power-off mr-3"></i>
                     <span>Cerrar Sesión</span>
                 </a>

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Curso } from './cursos';
+import { Seccion } from './secciones-curso/secciones';
+import { Contenido } from './contenido-curso/contenido';
 
 @Injectable({
   providedIn: 'root'
@@ -36,4 +38,9 @@ export class CursosService {
       return this.clienteHttp.get<Curso[]>(`${this.urlBase}/categoria/${idCategoria}`);
     }
 
+    obtenerSeccionesCurso(idCurso: number): Observable<Seccion[]> {
+      return this.clienteHttp.get<Seccion[]>(`${this.urlBase}/${idCurso}/seccion`);
+    }
+
+ 
 }

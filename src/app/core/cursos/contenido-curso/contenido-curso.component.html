@@ -1,0 +1,11 @@
+<p>contenido-curso works!</p>
+<div class="contenido-list">
+    <h2>Contenidos de la Sección</h2>
+    <ul>
+      <li *ngFor="let contenido of contenidos">
+        <h3>{{ contenido.titulo }}</h3>
+        <p>{{ contenido.descripcion }}</p>
+        <!-- Aquí puedes incluir la lógica para mostrar otros tipos de contenido como videos, imágenes, etc. -->
+      </li>
+    </ul>
+  </div>

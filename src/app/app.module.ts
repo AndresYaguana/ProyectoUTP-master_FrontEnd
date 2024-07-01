@@ -27,6 +27,9 @@ import { TipoUsuarioModule } from './core/usuarios/tipo-usuario/tipo-usuario.mod
 import { TipoUsuarioService } from './core/usuarios/tipo-usuario/tipo-usuario.service';
 import { AgregarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/agregar-tipo-usuario/agregar-tipo-usuario.component';
 import { EditarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/editar-tipo-usuario/editar-tipo-usuario.component';
+import { SeccionesCursoComponent } from './core/cursos/secciones-curso/secciones-curso.component';
+import { SeccionesCursoModule } from './core/cursos/secciones-curso/secciones-curso.module';
+import { DashboardCursoModule } from './core/cursos/dashboard-curso/dashboard-curso.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,6 @@ import { EditarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/editar-
     EditarCategoriaComponent,
     AgregarCategoriaComponent,
     DashboardCursoPipe,
-    DashboardCursoComponent,
     DashboardCategoriacursosComponent,
     AgregarTipoUsuarioComponent,
     EditarTipoUsuarioComponent

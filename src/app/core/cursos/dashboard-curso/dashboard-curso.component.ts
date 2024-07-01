@@ -1,20 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
+import { Router } from '@angular/router';
+import { Seccion } from '../secciones-curso/secciones';
+import { Contenido } from '../contenido-curso/contenido';
 
 @Component({
   selector: 'app-dashboard-curso',
-  //standalone: true,
-  //imports: [],
   templateUrl: './dashboard-curso.component.html',
   styleUrl: './dashboard-curso.component.scss'
 })
-export class DashboardCursoComponent {
+export class DashboardCursoComponent implements OnInit{
   cursos: Curso[] = []
   filteredCursos: Curso[] = [];
   searchTerm: string = '';
+  selectedCurso: Curso | null = null;
+  secciones: Seccion[] = [];
+  contenidos: Contenido[] = []; 
 
-  constructor(private cursoService: CursosService) { }
+  constructor(private cursoService: CursosService, private router: Router) { }
 
   ngOnInit(): void {
     this.cursoService.obtenerCursoLista().subscribe(cursos => {
@@ -36,5 +40,17 @@ export class DashboardCursoComponent {
       this.filterCourses();
     }
   }
+
+  entrarAlCurso(idCurso: number): void {
+    this.router.navigate(['/cursos', idCurso]);
+  }
+
+  cargarSecciones(idCurso: number): void {
+    this.cursoService.obtenerSeccionesCurso(idCurso).subscribe(secciones => {
+      this.secciones = secciones;
+    });
+  }
+
+
 
 }

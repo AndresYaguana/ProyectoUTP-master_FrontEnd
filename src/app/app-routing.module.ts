@@ -5,6 +5,7 @@ import { CursosComponent } from './core/cursos/cursos.component';
 import { CategoriasComponent } from './core/categorias/categorias.component';
 import { DashboardCursoComponent } from './core/cursos/dashboard-curso/dashboard-curso.component';
 import { DashboardCategoriacursosComponent } from './core/categorias/dashboard-categoriacursos/dashboard-categoriacursos.component';
+import { SeccionesCursoComponent } from './core/cursos/secciones-curso/secciones-curso.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'Dashboard-Curso', component: DashboardCursoComponent },
       { path: 'categorias/:idCategoria', component: DashboardCategoriacursosComponent },
       { path: 'TiposUsuarios', loadChildren: () => import('./core/usuarios/tipo-usuario/tipo-usuario.module').then(m => m.TipoUsuarioModule) },
+      { path: 'cursos/:idCurso', component: SeccionesCursoComponent },
     ]
   }
 ];

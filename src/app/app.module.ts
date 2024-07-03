@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppLayoutModule } from './core/layout/app.layout.module';
@@ -27,9 +27,13 @@ import { TipoUsuarioModule } from './core/usuarios/tipo-usuario/tipo-usuario.mod
 import { TipoUsuarioService } from './core/usuarios/tipo-usuario/tipo-usuario.service';
 import { AgregarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/agregar-tipo-usuario/agregar-tipo-usuario.component';
 import { EditarTipoUsuarioComponent } from './core/usuarios/tipo-usuario/editar-tipo-usuario/editar-tipo-usuario.component';
-import { SeccionesCursoComponent } from './core/cursos/secciones-curso/secciones-curso.component';
-import { SeccionesCursoModule } from './core/cursos/secciones-curso/secciones-curso.module';
+import { SeccionesCursoModule } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.module';
 import { DashboardCursoModule } from './core/cursos/dashboard-curso/dashboard-curso.module';
+import { TabViewModule } from 'primeng/tabview';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DetallesCursoComponent } from './core/cursos/detalles-curso/detalles-curso.component';
+import { SeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.component';
+import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,8 @@ import { DashboardCursoModule } from './core/cursos/dashboard-curso/dashboard-cu
     DashboardCursoPipe,
     DashboardCategoriacursosComponent,
     AgregarTipoUsuarioComponent,
-    EditarTipoUsuarioComponent
+    EditarTipoUsuarioComponent,
+    DetallesCursoComponent
   ],
   imports: [
     AppLayoutModule,
@@ -55,7 +60,10 @@ import { DashboardCursoModule } from './core/cursos/dashboard-curso/dashboard-cu
     CursosModule,
     CategoriasModule,
     BrowserModule,
-    TipoUsuarioModule
+    TipoUsuarioModule,
+    TabViewModule,
+    BrowserAnimationsModule,
+    CommonModule,
   ],
   providers: [
     AuthService,

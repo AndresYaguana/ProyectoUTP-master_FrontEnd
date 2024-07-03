@@ -2,18 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // If needed
-
-import { SeccionesCursoComponent } from './secciones-curso.component';// Adjust the path
+import { SeccionesCursoComponent } from './secciones-curso.component';
 
 const routes: Routes = [
-    { path: '', component: SeccionesCursoComponent }
-  ];
+  { path: '', component: SeccionesCursoComponent }
+];
 @NgModule({
   declarations: [SeccionesCursoComponent,
   ],
   imports: [
     CommonModule,
-    RouterModule, // Adjust as per your routing needs
+    RouterModule.forChild(routes),
     FormsModule
   ],
   exports: [SeccionesCursoComponent,

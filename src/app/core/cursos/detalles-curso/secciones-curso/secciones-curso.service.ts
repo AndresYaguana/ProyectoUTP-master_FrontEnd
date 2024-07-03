@@ -1,0 +1,34 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Seccion } from './secciones';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class SeccionService {
+
+    private urlBase = 'http://localhost:8080/ProyectoUTP-master/seccion';
+
+    constructor(private clienteHttp: HttpClient) { }
+
+    obtenerSeccionLista(): Observable<Seccion[]> {
+      return this.clienteHttp.get<Seccion[]>(this.urlBase);
+    }
+  
+    agregarSeccion(seccion: Seccion): Observable<Object> {
+      return this.clienteHttp.post(this.urlBase, seccion);
+    }
+    
+    obtenerSeccionPorId(idSeccion: number): Observable<Seccion> {
+      return this.clienteHttp.get<Seccion>(`${this.urlBase}/${idSeccion}`);
+    } 
+  
+    editarSeccion(idSeccion: number, seccion: Seccion): Observable<Object> {
+      return this.clienteHttp.put(`${this.urlBase}/${idSeccion}`, seccion);
+    }
+  
+    eliminarSeccion(idSeccion: number): Observable<Object> {
+      return this.clienteHttp.delete(`${this.urlBase}/${idSeccion}`);
+    }
+}

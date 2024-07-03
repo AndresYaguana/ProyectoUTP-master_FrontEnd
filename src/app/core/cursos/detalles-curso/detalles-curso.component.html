@@ -1,0 +1,21 @@
+<div class="card">
+    <p-tabView>
+      <ng-container *ngFor="let seccion of secciones">
+        <p-tabPanel header="{{ seccion.nombre }}">
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                <div class="content-list">
+                  <ul>
+                    <li *ngFor="let item of contenido[seccion.idSeccion]">
+                      <h5>{{ item.titulo }}</h5>
+                      <p>{{ item.descripcion }}</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+          </div>
+        </p-tabPanel>
+      </ng-container>
+    </p-tabView>
+  </div>
+  

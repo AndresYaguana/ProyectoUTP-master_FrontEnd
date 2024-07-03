@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Curso } from '../../cursos/cursos';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CursosService } from '../../cursos/cursos.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class DashboardCategoriacursosComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private cursosService: CursosService
+    private cursosService: CursosService, 
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,5 +36,8 @@ export class DashboardCategoriacursosComponent implements OnInit {
           console.error('Error al obtener cursos por categoría:', error);
         }
       );
+  }
+  entrarAlCurso(idCurso: number): void {
+    this.router.navigate(['/cursos', idCurso]);
   }
 }

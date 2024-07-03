@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Curso } from '../cursos';
 import { CursosService } from '../cursos.service';
 import { Router } from '@angular/router';
-import { Seccion } from '../secciones-curso/secciones';
-import { Contenido } from '../contenido-curso/contenido';
+import { Seccion } from '../detalles-curso/secciones-curso/secciones';
+import { Contenido } from '../detalles-curso/contenido-curso/contenido';
 
 @Component({
   selector: 'app-dashboard-curso',

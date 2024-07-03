@@ -35,6 +35,7 @@ export class AppMenuComponent implements OnInit {
           items: [
             { label: 'Dashboard', icon: 'pi pi-warehouse', routerLink: ['/Dashboard-Curso'] },
             { label: 'Gestión Cursos', icon: 'pi pi-address-book', routerLink: ['/Cursos'] },
+            { label: 'Gestión Seccion', icon: 'pi pi-address-book', routerLink: ['/GestionSeccion'] },
             { label: 'Categorías', icon: 'pi pi-bookmark-fill', routerLink: ['/pi-book'],
               items: [
                 { label: 'Gestión Categorías', icon: 'pi pi-plus', routerLink: ['/Categorias'] },

@@ -1,1 +1,27 @@
-<p>agregar-secciones-curso works!</p>
+<div class="bubble-container">
+    <div class="bubble">
+      <h3 class="text-center mt-4">AGREGAR NUEVA SECCION</h3>
+      <form [formGroup]="agregarFormulario" (ngSubmit)="agregarSeccion()" class="w-50 mx-auto">
+        <div class="mb-3">
+          <label for="inputCurso" class="form-label">Cursos</label>
+          <select class="form-control" id="inputCurso" formControlName="idCurso">
+            <option *ngFor="let cursos of cursos" [value]="cursos.idCurso">{{ cursos.nombre }}</option>
+          </select>
+          <div *ngIf="agregarFormulario.get('idCurso')?.errors?.['required'] && agregarFormulario.get('idCurso')?.touched" class="text-danger">Categoría es requerida.</div>
+        </div>
+        <div class="mb-3">
+          <label for="inputNombre" class="form-label">Nombre de la Seccion</label>
+          <input type="text" class="form-control" id="inputNombre" formControlName="nombre" required>
+          <div *ngIf="agregarFormulario.get('nombre')?.errors?.['required'] && agregarFormulario.get('nombre')?.touched" class="text-danger">Nombre es requerido.</div>
+        </div>
+        <div class="mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado" required>
+          <div *ngIf="agregarFormulario.get('habilitado')?.errors?.['required'] && agregarFormulario.get('habilitado')?.touched" class="text-danger">Habilitado es requerido.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  

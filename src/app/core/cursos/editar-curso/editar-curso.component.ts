@@ -8,15 +8,12 @@ import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-editar-curso',
-  //standalone: true,
-  //imports: [FormsModule],
   templateUrl: './editar-curso.component.html',
   styleUrl: './editar-curso.component.scss'
 })
 export class EditarCursoComponent {
+  id:number = 0;  
   curso: Curso = {idCurso: 0, idCategoria: 0, nombre: '', ruta: '', urlImage: '', descripcion: '', habilitado: false, creadoPor: '', fechaCreacion: '', modificadoPor: '', fechaModificacion: ''};
-  id:number = 0;
-  //dialogRef: any;
 
   constructor(
     private cursoServicio: CursosService, 

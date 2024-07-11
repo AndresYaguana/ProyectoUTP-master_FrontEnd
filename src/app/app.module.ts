@@ -34,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DetallesCursoComponent } from './core/cursos/detalles-curso/detalles-curso.component';
 import { SeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.component';
 import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.service';
+import { AgregarSeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/agregar-secciones-curso/agregar-secciones-curso.component';
+import { EditarSeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/editar-secciones-curso/editar-secciones-curso.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/sec
     DashboardCategoriacursosComponent,
     AgregarTipoUsuarioComponent,
     EditarTipoUsuarioComponent,
-    DetallesCursoComponent
+    DetallesCursoComponent,
+    AgregarSeccionesCursoComponent,
+    EditarSeccionesCursoComponent
   ],
   imports: [
     AppLayoutModule,
@@ -64,6 +68,7 @@ import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/sec
     TabViewModule,
     BrowserAnimationsModule,
     CommonModule,
+    SeccionesCursoModule
   ],
   providers: [
     AuthService,
@@ -71,6 +76,7 @@ import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/sec
     CursosService,
     CategoriasService,
     TipoUsuarioService,
+    SeccionService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

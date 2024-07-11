@@ -1,1 +1,24 @@
-<p>editar-secciones-curso works!</p>
+<div class="bubble-container">
+    <div class="bubble">
+      <h3 class="text-center mt-4">EDITAR SECCION EXISTENTE</h3>
+      <form (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+            <label for="inputCurso" class="form-label">Cursos</label>
+            <select class="form-control" id="inputCurso" [(ngModel)]="seccion.idCurso" name="idCurso" required>
+              <option *ngFor="let curso of cursos" [value]="curso.idCurso">{{ curso.nombre }}</option>
+            </select>
+          </div>
+        <div class="mb-3">
+          <label for="inputNombre" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="inputNombres" [(ngModel)]="seccion.nombre" name="nombre" required>
+        </div>
+        <div class="mb-3">
+          <label for="inputHabilitado" class="form-label">Habilitado:</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" name="habilitado" [(ngModel)]="seccion.habilitado">
+        </div>
+        <button type="submit" class="btn btn-warning btn-sm me-3">Guardar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar()">Regresar</button>
+      </form>
+    </div>
+  </div>
+  

@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TipoUsuario } from '../tipo-usuario/tipo-usuario';
 import { TipoUsuarioService } from '../tipo-usuario/tipo-usuario.service';
+import { AuthService } from '../../Login/auth/auth.service';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -17,13 +18,15 @@ export class AgregarUsuarioComponent implements OnInit {
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
   tipousuarios: TipoUsuario[] = []; //nuevoUsuario: Usuario = { idUsuario: 0, email: '', password: '',nombres: '', apellidos: '',tipoUsuario: 0, urlFoto: '',universidad: '', habilitado: false, creadoPor: '', fechaCreacion: '',modificadoPor:'',fechaModificacion:'' };
+  usuario: Usuario | null = null;
 
   constructor(
     private fb: FormBuilder,
     private usuarioServicio: UsuariosService, 
-    
     private tipoUsuariosServicio: TipoUsuarioService,
-    private dialogRef: MatDialogRef<AgregarUsuarioComponent>) {
+    private authService: AuthService, 
+    private dialogRef: MatDialogRef<AgregarUsuarioComponent>
+  ) {
       this.agregarFormulario = this.fb.group({
         email: [null, [Validators.required, Validators.email]],
         password: [null, Validators.required],
@@ -39,6 +42,8 @@ export class AgregarUsuarioComponent implements OnInit {
   ngOnInit() : void{
     this.obtenerTipoUsuarios();
     this.toggleFormulario();
+    this.usuario = this.authService.getLoggedInUser();
+    console.log('Usuario actual:', this.usuario);
   }
 
   obtenerTipoUsuarios(): void {
@@ -64,7 +69,7 @@ export class AgregarUsuarioComponent implements OnInit {
       if (result.isConfirmed) {
         const nuevoUsuario: Usuario = {
         ...this.agregarFormulario.value,
-        creadoPor: 'U20244131', 
+        creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(), 
         fechaCreacion: new Date().toISOString(),
         tipousuario: { idTipousuario: this.agregarFormulario.value.idTipousuario }
     };

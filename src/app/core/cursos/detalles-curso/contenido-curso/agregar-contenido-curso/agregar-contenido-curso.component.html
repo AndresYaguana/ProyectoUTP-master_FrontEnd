@@ -1,0 +1,44 @@
+<div class="bubble-container">
+    <div class="bubble">
+      <h3 class="text-center mt-4">AGREGAR NUEVO CONTENIDO</h3>
+      <form [formGroup]="agregarFormulario" (ngSubmit)="agregarContenido()" class="w-50 mx-auto">
+        <div class="mb-3">
+          <label for="inputCurso" class="form-label">Cursos</label>
+          <select class="form-control" id="inputCurso" formControlName="idCurso" (change)="onCursoChange()">
+            <option *ngFor="let curso of cursos" [value]="curso.idCurso">{{ curso.nombre }}</option>
+          </select>
+          <div *ngIf="agregarFormulario.get('idCurso')?.errors?.['required'] && agregarFormulario.get('idCurso')?.touched" class="text-danger">Curso es requerido.</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputSeccion" class="form-label">Secciones</label>
+            <select class="form-control" id="inputSeccion" formControlName="idSeccion" (change)="onSeccionChange()">
+              <option *ngFor="let seccion of secciones" [value]="seccion.idSeccion">{{ seccion.nombre }}</option>
+            </select>
+            <div *ngIf="agregarFormulario.get('idSeccion')?.errors?.['required'] && agregarFormulario.get('idSeccion')?.touched" class="text-danger">Sección es requerida.</div>
+          </div>          
+        <div class="mb-3">
+          <label for="inputTitulo" class="form-label">Título</label>
+          <input type="text" class="form-control" id="inputTitulo" formControlName="titulo" required>
+          <div *ngIf="agregarFormulario.get('titulo')?.errors?.['required'] && agregarFormulario.get('titulo')?.touched" class="text-danger">Título es requerido.</div>
+        </div>
+        <div class="mb-3">
+          <label for="inputDescripcion" class="form-label">Descripción</label>
+          <textarea class="form-control" id="inputDescripcion" formControlName="descripcion" required></textarea>
+          <div *ngIf="agregarFormulario.get('descripcion')?.errors?.['required'] && agregarFormulario.get('descripcion')?.touched" class="text-danger">Descripción es requerida.</div>
+        </div>
+        <div class="mb-3">
+            <label for="inputUrlArchivo" class="form-label">Archivo</label>
+            <input type="file" class="form-control" id="inputUrlArchivo" (change)="onFileChange($event)">
+            <div *ngIf="fileError" class="text-danger">{{ fileError }}</div>
+          </div>                       
+        <div class="mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado">
+          <div *ngIf="agregarFormulario.get('habilitado')?.errors?.['required'] && agregarFormulario.get('habilitado')?.touched" class="text-danger">Habilitado es requerido.</div>
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+        <button type="button" class="btn btn-secondary" (click)="cerrar()">Cancelar</button>
+      </form>
+    </div>
+  </div>
+  

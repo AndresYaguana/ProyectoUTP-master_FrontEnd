@@ -36,6 +36,12 @@ import { SeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-
 import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/secciones-curso.service';
 import { AgregarSeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/agregar-secciones-curso/agregar-secciones-curso.component';
 import { EditarSeccionesCursoComponent } from './core/cursos/detalles-curso/secciones-curso/editar-secciones-curso/editar-secciones-curso.component';
+import { ForoModule } from './core/comunidad/foro/foro.module';
+import { ForoComponent } from './core/comunidad/foro/foro.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { AgregarContenidoCursoComponent } from './core/cursos/detalles-curso/contenido-curso/agregar-contenido-curso/agregar-contenido-curso.component';
+import { ContenidoCursoModule } from './core/cursos/detalles-curso/contenido-curso/agregar-contenido-curso/agregar-contenido-curso.module';
+import { ContenidoService } from './core/cursos/detalles-curso/contenido-curso/contenido-curso.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +57,9 @@ import { EditarSeccionesCursoComponent } from './core/cursos/detalles-curso/secc
     EditarTipoUsuarioComponent,
     DetallesCursoComponent,
     AgregarSeccionesCursoComponent,
-    EditarSeccionesCursoComponent
+    EditarSeccionesCursoComponent,
+    ForoComponent,
+    AgregarContenidoCursoComponent
   ],
   imports: [
     AppLayoutModule,
@@ -68,7 +76,9 @@ import { EditarSeccionesCursoComponent } from './core/cursos/detalles-curso/secc
     TabViewModule,
     BrowserAnimationsModule,
     CommonModule,
-    SeccionesCursoModule
+    SeccionesCursoModule,
+    ForoModule,
+    ContenidoCursoModule
   ],
   providers: [
     AuthService,
@@ -77,6 +87,7 @@ import { EditarSeccionesCursoComponent } from './core/cursos/detalles-curso/secc
     CategoriasService,
     TipoUsuarioService,
     SeccionService,
+    ContenidoService,
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]

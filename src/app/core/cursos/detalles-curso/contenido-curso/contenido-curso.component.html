@@ -1,11 +1,42 @@
-<p>contenido-curso works!</p>
-<div class="contenido-list">
-    <h2>Contenidos de la Sección</h2>
-    <ul>
-      <li *ngFor="let contenido of contenidos">
-        <h3>{{ contenido.titulo }}</h3>
-        <p>{{ contenido.descripcion }}</p>
-        <!-- Aquí puedes incluir la lógica para mostrar otros tipos de contenido como videos, imágenes, etc. -->
-      </li>
-    </ul>
+
+<div class="container-fluid">
+  <div class="text-center mt-4">
+    <h3> GESTION DE CONTENIDOS - CURSOS </h3>
   </div>
+
+  <!-- Botón para abrir el modal de agregar nuevo usuario -->
+ <div class="text-center mt-4">
+    <button class="btn btn-primary" (click)="abrirModalAgregarContenido()">Agregar Contenido</button>
+ </div>
+
+  <!-- Tabla de usuarios -->
+  <table class="table table-striped table-hover mt-3">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Archivo</th>
+        <th scope="col">Usuario</th>
+        <th scope="col">Creador</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contenido of contenido">
+        <td>{{ contenido.idContenido }}</td>
+        <td>{{ contenido.titulo }}</td>
+        <td>{{ contenido.descripcion }}</td>
+        <td>{{ contenido.urlArchivo }}</td>
+        <td>{{ contenido.creadoPor }}</td>
+        <td>{{ contenido.fechaCreacion }}</td>
+        <td class="text-center">
+          <div class="btn-group" role="group" aria-label="Acciones">
+            <button  (click)="editarSeccion(contenido.idContenido)" class="btn btn-warning btn-sm">Editar</button>
+            <button  (click)="eliminarSeccion(contenido.idContenido)"class="btn btn-danger btn-sm">Eliminar</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -4,6 +4,8 @@ import { TipoUsuarioService } from '../tipo-usuario.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { TipoUsuario } from '../tipo-usuario';
+import { Usuario } from '../../usuarios';
+import { AuthService } from '../../../Login/auth/auth.service';
 
 @Component({
   selector: 'app-agregar-tipo-usuario',
@@ -13,10 +15,12 @@ import { TipoUsuario } from '../tipo-usuario';
 export class AgregarTipoUsuarioComponent implements OnInit{
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
+  usuario: Usuario | null = null;
 
   constructor(
     private fb: FormBuilder,
     private tiposUsuariosServicio: TipoUsuarioService, 
+    private authService: AuthService, 
     private dialogRef: MatDialogRef<AgregarTipoUsuarioComponent>) {
     this.agregarFormulario = this.fb.group({
         nombre: [null, [Validators.required]],
@@ -26,6 +30,8 @@ export class AgregarTipoUsuarioComponent implements OnInit{
 
     ngOnInit() : void{
       this.toggleFormulario();
+      this.usuario = this.authService.getLoggedInUser();
+      console.log('Usuario actual:', this.usuario);
     }
 
     agregarTipoUsuario(): void {
@@ -41,7 +47,7 @@ export class AgregarTipoUsuarioComponent implements OnInit{
           if (result.isConfirmed) {
             const nuevoTipousuario: TipoUsuario = {
               ...this.agregarFormulario.value,
-              creadoPor: 'U20244131',
+              creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
               fechaCreacion: new Date().toISOString()
             };
             this.tiposUsuariosServicio.agregarTipousuario(nuevoTipousuario).subscribe({

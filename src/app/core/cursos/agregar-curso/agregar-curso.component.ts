@@ -7,6 +7,8 @@ import { CategoriasService } from '../../categorias/categorias.service'; // Make
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Categoria } from '../../categorias/categorias';
+import { Usuario } from '../../usuarios/usuarios';
+import { AuthService } from '../../Login/auth/auth.service';
 
 @Component({
   selector: 'app-agregar-curso',
@@ -17,11 +19,13 @@ export class AgregarCursoComponent implements OnInit {
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
   categorias: Categoria[] = [];
+  usuario: Usuario | null = null;
 
   constructor(
     private fb: FormBuilder,
     private cursoServicio: CursosService, 
     private categoriasServicio: CategoriasService,
+    private authService: AuthService, 
     private dialogRef: MatDialogRef<AgregarCursoComponent>
   ) {
     this.agregarFormulario = this.fb.group({
@@ -37,6 +41,8 @@ export class AgregarCursoComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerCategorias();
     this.toggleFormulario();
+    this.usuario = this.authService.getLoggedInUser();
+    console.log('Usuario actual:', this.usuario);
   }
 
   obtenerCategorias(): void {
@@ -61,7 +67,7 @@ export class AgregarCursoComponent implements OnInit {
         if (result.isConfirmed) {
           const nuevoCurso: Curso = {
             ...this.agregarFormulario.value,
-            creadoPor: 'U20244131',
+            creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
             fechaCreacion: new Date().toISOString(),
             categoria: { idCategoria: this.agregarFormulario.value.idCategoria } 
           };

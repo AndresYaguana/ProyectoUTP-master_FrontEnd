@@ -6,6 +6,8 @@ import { CursosService } from '../../../cursos.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Seccion } from '../secciones';
+import { Usuario } from '../../../../usuarios/usuarios';
+import { AuthService } from '../../../../Login/auth/auth.service';
 
 @Component({
   selector: 'app-agregar-secciones-curso',
@@ -17,11 +19,13 @@ export class AgregarSeccionesCursoComponent implements OnInit {
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
   cursos: Curso[] = [];
+  usuario: Usuario | null = null;
 
   constructor(
     private fb: FormBuilder,
     private seccionServicio: SeccionService, 
     private cursoServicio: CursosService,
+    private authService: AuthService, 
     private dialogRef: MatDialogRef<AgregarSeccionesCursoComponent>
   ) {
     this.agregarFormulario = this.fb.group({
@@ -34,6 +38,8 @@ export class AgregarSeccionesCursoComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerCursos();
     this.toggleFormulario();
+    this.usuario = this.authService.getLoggedInUser();
+    console.log('Usuario actual:', this.usuario);
   }
 
 
@@ -47,7 +53,6 @@ export class AgregarSeccionesCursoComponent implements OnInit {
     });
   }
 
-
   agregarSeccion(): void {
     if (this.agregarFormulario.valid) {
       console.log(this.agregarFormulario.value);
@@ -60,7 +65,7 @@ export class AgregarSeccionesCursoComponent implements OnInit {
         if (result.isConfirmed) {
           const nuevaSeccion: Seccion = {
             ...this.agregarFormulario.value,
-            creadoPor: 'U20244131',
+            creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
             fechaCreacion: new Date().toISOString(),
             curso: { idCurso: this.agregarFormulario.value.idCurso } 
           };

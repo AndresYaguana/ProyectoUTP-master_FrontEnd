@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Subject } from 'rxjs';
-import { TabCloseEvent } from '../interface/tabcloseevent';
+import { TabCloseEvent } from './interface/tabcloseevent';
 
 export type MenuMode = 'static' | 'overlay' | 'slim-plus' | 'slim';
 

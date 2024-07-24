@@ -5,6 +5,10 @@
         <p class="text-color-secondary mb-4">Bienvenido a la Comunidad de <strong>UTP MyBlog</strong>, registrate para continuar.</p>
   
         <span class="p-input-icon-left mb-4">
+          <p-dropdown [options]="tipousuarios" formControlName="idTipousuario" optionLabel="nombre" placeholder="Selecciona Tipo Usuario" [style]="{'width':'100%'}"></p-dropdown>
+          <!---<div *ngIf="agregarFormulario.get('idTipousuario')?.errors?.['required'] && agregarFormulario.get('idTipousuario')?.touched" class="text-danger">Tipo Usuario es requerido.</div>-->
+        </span>
+        <span class="p-input-icon-left mb-4">
           <i class="pi pi-envelope"></i>
           <input formControlName="email" type="text" pInputText placeholder="Correo Electrónico" class="w-full">
         </span>
@@ -12,6 +16,22 @@
           <i class="pi pi-key z-2"></i>
           <p-password formControlName="password" id="password" placeholder="Contraseña" styleClass="w-full" [inputStyle]="{paddingLeft: '2.5rem'}" inputStyleClass="w-full" [toggleMask]="true"
             promptLabel="Introduzca una contraseña" weakLabel="La contraseña es muy simple" mediumLabel="La contraseña debe ser más compleja" strongLabel="Es una contraseña segura"></p-password>
+        </span>
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-user-edit"></i>
+          <input formControlName="nombres" type="text" pInputText placeholder="Nombres" class="w-full">
+        </span>
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-user-edit"></i>
+          <input formControlName="apellidos" type="text" pInputText placeholder="Apellidos" class="w-full">
+        </span>
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-link"></i>
+          <input formControlName="urlFoto" type="text" pInputText placeholder="URL de Foto" class="w-full">
+        </span>
+        <span class="p-input-icon-left mb-4">
+          <i class="pi pi-building"></i>
+          <input formControlName="universidad" type="text" pInputText placeholder="Universidad" class="w-full">
         </span>
   
         <button type="submit" pButton pRipple label="Registrarme" class="mb-3"></button>

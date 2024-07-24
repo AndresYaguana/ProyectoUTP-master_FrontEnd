@@ -6,6 +6,7 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -19,7 +20,8 @@ import { ButtonModule } from 'primeng/button';
     PasswordModule,
     FormsModule,
     ReactiveFormsModule,
-    RegistroRoutingModule
+    RegistroRoutingModule,
+    DropdownModule
   ]
 })
 export class RegistroModule { }

@@ -16,8 +16,11 @@ export class UsuariosService {
     return this.clienteHttp.get<Usuario[]>(this.urlBase)
   }
 
-  agregarUsuario(usuarios: Usuario):Observable<Object>{
+  /*agregarUsuario(usuarios: Usuario):Observable<Object>{
     return this.clienteHttp.post(this.urlBase, usuarios);
+  }*/
+  agregarUsuario(usuario: Usuario): Observable<Usuario> {
+    return this.clienteHttp.post<Usuario>(this.urlBase, usuario);
   }
   
   obtenerUsuarioPorId(idUsuario:number): Observable<Usuario>{

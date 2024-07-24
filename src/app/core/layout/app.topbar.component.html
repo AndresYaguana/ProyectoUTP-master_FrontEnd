@@ -37,29 +37,32 @@
             <i class="pi pi-angle-down"></i>
         </button>
         <ul class="list-none p-3 m-0 border-round shadow-2 hidden absolute surface-overlay origin-top w-full sm:w-12rem mt-2 right-0 top-auto">
-            <li *ngIf="usuario && tienePermiso('VER_PERFIL')">
+            <!--- <li *ngIf="usuario && tienePermiso('VER_PERFIL')">-->
+            <li *ngIf="usuario">
                 <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
                     <i class="pi pi-user mr-3"></i>
                     <a [routerLink]="['/Perfil']">Perfil</a>
                 </a>
             </li>
-            <li *ngIf="usuario && tienePermiso('VER_NOTIFICACIONES')">
+            <!---<li *ngIf="usuario && tienePermiso('VER_NOTIFICACIONES')">-->
+            <li *ngIf="usuario">
                 <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
                     <i class="pi pi-bell mr-3"></i>
                     <a [routerLink]="['/Notificaciones']">Notificaciones</a>
                 </a>
             </li>
-            <li *ngIf="usuario && tienePermiso('VER_AYUDA')">
+            <!---<li *ngIf="usuario && tienePermiso('VER_AYUDA')">-->
+            <li *ngIf="usuario">
                 <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer">
                     <i class="pi pi-question-circle mr-3"></i>
-                    <span>Ayuda</span>
-                    <a [routerLink]="['/Ayuda']">Ayuda</a>
+                    <a [routerLink]="['/Ayuda']"> Ayuda</a>
                 </a>
             </li>
-            <li *ngIf="usuario && tienePermiso('CERRAR_SESION')">
+         <!---<li *ngIf="usuario && tienePermiso('CERRAR_SESION')">-->
+            <li *ngIf="usuario">
                 <a pRipple class="flex p-2 border-round align-items-center hover:surface-hover transition-colors transition-duration-150 cursor-pointer" (click)="cerrarSesion()">
                     <i class="pi pi-power-off mr-3"></i>
-                    <span>Cerrar Sesión</span>
+                    <a>Cerrar Sesión</a>
                 </a>
             </li>
         </ul>

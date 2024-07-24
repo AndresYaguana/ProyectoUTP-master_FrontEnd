@@ -24,11 +24,18 @@ export class SeccionService {
       return this.clienteHttp.get<Seccion>(`${this.urlBase}/${idSeccion}`);
     } 
   
-    editarSeccion(idSeccion: number, seccion: Seccion): Observable<Object> {
+    editarSeccion(idSeccion: number, seccion: Seccion): Observable<any> {
+      // Establecer el usuario que modifica y la fecha de modificación
+      seccion.modificadoPor = 'U20244131';
+      seccion.fechaModificacion = new Date().toISOString();
+    
+      // Realizar la solicitud PUT al backend
       return this.clienteHttp.put(`${this.urlBase}/${idSeccion}`, seccion);
     }
+    
   
     eliminarSeccion(idSeccion: number): Observable<Object> {
       return this.clienteHttp.delete(`${this.urlBase}/${idSeccion}`);
     }
 }
+ 

@@ -1,0 +1,142 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full height */
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+.welcome-section {
+  background: linear-gradient(135deg, #ff1e1e, #ffffff);
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.chat-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.mensaje {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  max-width: 70%;
+  position: relative;
+  padding: 10px 15px;
+  border-radius: 10px;
+}
+
+.foto {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.mensaje-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.enviado {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+  border-top-right-radius: 0;
+  margin-left: auto; /* Align to the right */
+}
+
+.recibido {
+  background-color: #ebebeb;
+  align-self: flex-start;
+  border-top-left-radius: 0;
+  margin-right: auto; /* Align to the left */
+}
+
+.nombre {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.contenido {
+  margin-bottom: 5px;
+}
+
+.fecha {
+  font-size: 0.7em;
+  color: #888;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+
+.input-container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"] {
+  flex: 1;
+  height: 40px;
+  padding: 0 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+button {
+  height: 40px;
+  width: 40px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button i {
+  font-size: 16px;
+}
+
+.video-container, .image-container {
+  margin-top: 10px;
+}
+
+video {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+.image-container img {
+  max-width: 100%;
+  border-radius: 5px;
+}

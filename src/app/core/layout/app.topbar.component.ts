@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ColorScheme, LayoutService } from '../service/app-layout.service';
+import { ColorScheme, LayoutService } from './app-layout.service';
 import { AuthService } from '../Login/auth/auth.service';
 import { Usuario } from '../usuarios/usuarios';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -21,7 +22,8 @@ export class AppTopbarComponent implements OnInit {
 
   constructor(
     public layoutService: LayoutService,
-    private authService: AuthService
+    private authService: AuthService, 
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -29,9 +31,9 @@ export class AppTopbarComponent implements OnInit {
     console.log('Usuario actual:', this.usuario);
   }
 
-  tienePermiso(permiso: string): boolean {
+  /*tienePermiso(permiso: string): boolean {
     return this.authService.tienePermiso(permiso); // Llamar al método del servicio de autenticación
-  }
+  }*/
 
   onClickMode() {
     if (this.varmodo == false) {

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { Subscription, filter } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
-import { TabCloseEvent } from '../interface/tabcloseevent';
+import { TabCloseEvent } from './interface/tabcloseevent';
 import { AppTopbarComponent } from './app.topbar.component';
 import { AppSidebarComponent } from './app.sidebar.component';
-import { ColorScheme, LayoutService } from '../service/app-layout.service';
+import { ColorScheme, LayoutService } from './app-layout.service';
 import { MenuService } from './app.menu.service';
 
 @Component({

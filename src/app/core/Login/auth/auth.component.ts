@@ -24,6 +24,7 @@ export class AuthComponent {
   }
 
   enviarInicio(): void {
+    console.log('Form values:', this.loginFormulario.value);
     const email = this.loginFormulario.value.user_email;
     const password = this.loginFormulario.value.user_password;
     this.authService.login(email, password).subscribe(
@@ -43,4 +44,5 @@ export class AuthComponent {
       }
     );
   }
+  
 }

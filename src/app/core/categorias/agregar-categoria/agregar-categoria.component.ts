@@ -4,6 +4,8 @@ import { CategoriasService } from '../categorias.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { Categoria } from '../categorias';
+import { Usuario } from '../../usuarios/usuarios';
+import { AuthService } from '../../Login/auth/auth.service';
 
 @Component({
   selector: 'app-agregar-categoria',
@@ -13,10 +15,12 @@ import { Categoria } from '../categorias';
 export class AgregarCategoriaComponent implements OnInit{
   mostrarFormulario: boolean = false;
   agregarFormulario: FormGroup = new FormGroup({});
+  usuario: Usuario | null = null;
 
   constructor(
     private fb: FormBuilder,
-    private categoriasServicio: CategoriasService, 
+    private categoriasServicio: CategoriasService,
+    private authService: AuthService, 
     private dialogRef: MatDialogRef<AgregarCategoriaComponent>) {
     this.agregarFormulario = this.fb.group({
         nombre: [null, [Validators.required]],
@@ -42,7 +46,7 @@ export class AgregarCategoriaComponent implements OnInit{
           if (result.isConfirmed) {
             const nuevaCategoria: Categoria = {
               ...this.agregarFormulario.value,
-              creadoPor: 'U20244131',
+              creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
               fechaCreacion: new Date().toISOString()
             };
             this.categoriasServicio.agregarCategoria(nuevaCategoria).subscribe({

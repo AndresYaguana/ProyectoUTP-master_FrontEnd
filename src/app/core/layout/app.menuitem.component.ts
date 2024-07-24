@@ -4,40 +4,28 @@ import { animate, state, style, transition, trigger, AnimationEvent } from '@ang
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MenuService } from './app.menu.service';
-import { LayoutService } from '../service/app-layout.service';
+import { LayoutService } from './app-layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
 import { DomHandler } from 'primeng/dom';
-
-
 
 @Component({
   selector: '[app-menuitem]',
   template: `
-		<ng-container>
-            <div *ngIf="root && item.visible !== false" class="layout-menuitem-root-text">{{item.label}}</div>
-			<a *ngIf="(!item.routerLink || item.items) && item.visible !== false" [attr.href]="item.url" (click)="itemClick($event)" (mouseenter)="onMouseEnter()"
-			   [ngClass]="item.class" [attr.target]="item.target" tabindex="0" pRipple [pTooltip]="item.label" [tooltipDisabled]="!(isSlim && root && !active)">
-				<i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
-				<span class="layout-menuitem-text">{{item.label}}</span>
-				<i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
-			</a>
-			<a *ngIf="(item.routerLink && !item.items) && item.visible !== false" (click)="itemClick($event)" (mouseenter)="onMouseEnter()" [ngClass]="item.class" 
-			   [routerLink]="item.routerLink" routerLinkActive="active-route" [routerLinkActiveOptions]="item.routerLinkActiveOptions||{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }"
-               [fragment]="item.fragment" [queryParamsHandling]="item.queryParamsHandling" [preserveFragment]="item.preserveFragment!" 
-               [skipLocationChange]="item.skipLocationChange!" [replaceUrl]="item.replaceUrl!" [state]="item.state" [queryParams]="item.queryParams"
-               [attr.target]="item.target" tabindex="0" pRipple [pTooltip]="item.label" [tooltipDisabled]="!(isSlim && root)">
-				<i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
-				<span class="layout-menuitem-text">{{item.label}}</span>
-				<i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items"></i>
-			</a>
+    <ng-container>
+      <a *ngIf="item.visible !== false" [attr.href]="item.url" (click)="itemClick($event)" (mouseenter)="onMouseEnter()"
+         [ngClass]="item.class" [attr.target]="item.target" tabindex="0" pRipple [pTooltip]="item.label" [tooltipDisabled]="!(isSlim && root && !active)">
+        <i [ngClass]="item.icon" class="layout-menuitem-icon"></i>
+        <span class="layout-menuitem-text" *ngIf="active">{{ item.label }}</span>
+        <i class="pi pi-fw pi-angle-down layout-submenu-toggler" *ngIf="item.items && active"></i>
+      </a>
 
-			<ul #submenu *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation" (@children.done)="onSubmenuAnimated($event)">
-				<ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
-					<li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child.badgeClass"></li>
-				</ng-template>
-			</ul>
-		</ng-container>
-    `,
+      <ul #submenu *ngIf="item.items && item.visible !== false" [@children]="submenuAnimation" (@children.done)="onSubmenuAnimated($event)">
+        <ng-template ngFor let-child let-i="index" [ngForOf]="item.items">
+          <li app-menuitem [item]="child" [index]="i" [parentKey]="key" [class]="child.badgeClass"></li>
+        </ng-template>
+      </ul>
+    </ng-container>
+  `,
   animations: [
     trigger('children', [
       state('collapsed', style({
@@ -46,49 +34,28 @@ import { DomHandler } from 'primeng/dom';
       state('expanded', style({
         height: '*'
       })),
-      state('hidden', style({
-        display: 'none'
-      })),
-      state('visible', style({
-        display: 'block'
-      })),
       transition('collapsed <=> expanded', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
     ])
   ]
 })
 export class AppMenuitemComponent implements OnInit, OnDestroy {
-  
   @Input() item: any;
-
   @Input() index!: number;
-
   @Input() @HostBinding('class.layout-root-menuitem') root!: boolean;
-
   @Input() parentKey!: string;
-
   @ViewChild('submenu') submenu!: ElementRef;
 
   active = false;
-
   menuSourceSubscription: Subscription;
-
   menuResetSubscription: Subscription;
-
   key: string = "";
 
-  constructor(
-    public layoutService: LayoutService,
-    private cd: ChangeDetectorRef,
-    private appSidebar: AppSidebarComponent,
-    public router: Router,
-    private menuService: MenuService
-  ) {
+  constructor(public layoutService: LayoutService, private cd: ChangeDetectorRef, private appSidebar: AppSidebarComponent, public router: Router, private menuService: MenuService) {
     this.menuSourceSubscription = this.menuService.menuSource$.subscribe(value => {
       Promise.resolve(null).then(() => {
         if (value.routeEvent) {
           this.active = (value.key === this.key || value.key.startsWith(this.key + '-')) ? true : false;
-        }
-        else {
+        } else {
           if (value.key !== this.key && !value.key.startsWith(this.key + '-')) {
             this.active = false;
           }
@@ -100,17 +67,15 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
       this.active = false;
     });
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(params => {
-        if (this.isSlimPlus || this.isSlim) {
-          this.active = false;
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(params => {
+      if (this.isSlimPlus || this.isSlim) {
+        this.active = false;
+      } else {
+        if (this.item.routerLink) {
+          this.updateActiveStateFromRoute();
         }
-        else {
-          if (this.item.routerLink) {
-            this.updateActiveStateFromRoute();
-          }
-        }
-      });
+      }
+    });
   }
 
   ngOnInit() {
@@ -127,8 +92,6 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   onSubmenuAnimated(event: AnimationEvent) {
     if (event.toState === 'visible' && this.layoutService.isDesktop() && (this.layoutService.isSlim() || this.layoutService.isSlimPlus())) {
       const el = <HTMLUListElement>event.element;
@@ -144,7 +107,6 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
       const oHeight = overlay.offsetHeight;
       const topbarEl = document.querySelector('.layout-topbar') as HTMLElement;
       const topbarHeight = topbarEl?.offsetHeight || 0;
-      // reset
       overlay.style.top = '';
       overlay.style.left = '';
 
@@ -156,7 +118,6 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     }
   }
 
-
   updateActiveStateFromRoute() {
     let activeRoute = this.router.isActive(this.item.routerLink[0], (<IsActiveMatchOptions>this.item.routerLinkActiveOptions || { paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }));
 
@@ -166,37 +127,31 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
   }
 
   itemClick(event: MouseEvent) {
-    // avoid processing disabled items
     if (this.item.disabled) {
       event.preventDefault();
       return;
     }
 
-    // navigate with hover
-    if (this.root && this.isSlim || this.isSlimPlus) {
+    if (this.root && (this.isSlim || this.isSlimPlus)) {
       this.layoutService.state.menuHoverActive = !this.layoutService.state.menuHoverActive;
     }
 
-    // execute command
     if (this.item.command) {
       this.item.command({ originalEvent: event, item: this.item });
     }
 
-    // add tab
     if (event.metaKey && this.item.routerLink && (!this.item.data || !this.item.data.fullPage)) {
       this.layoutService.onTabOpen(this.item);
       event.preventDefault();
     }
 
-    // toggle active state
     if (this.item.items) {
       this.active = !this.active;
 
       if (this.root && this.active && (this.isSlim || this.isSlimPlus)) {
         this.layoutService.onOverlaySubmenuOpen();
       }
-    }
-    else {
+    } else {
       if (this.layoutService.isMobile()) {
         this.layoutService.state.staticMenuMobileActive = false;
       }
@@ -211,7 +166,6 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
   }
 
   onMouseEnter() {
-    // activate item on hover
     if (this.root && (this.isSlim || this.isSlimPlus) && this.layoutService.isDesktop()) {
       if (this.layoutService.state.menuHoverActive) {
         this.active = true;
@@ -221,8 +175,8 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
   }
 
   get submenuAnimation() {
-    if (this.layoutService.isDesktop() && (this.layoutService.isSlim() || this.layoutService.isSlimPlus()))
-      return this.active ? 'visible' : 'hidden';
+    if (this.layoutService.isDesktop() && (this.isSlim || this.isSlimPlus))
+      return this.active ? 'expanded' : 'collapsed';
     else
       return this.root ? 'expanded' : (this.active ? 'expanded' : 'collapsed');
   }

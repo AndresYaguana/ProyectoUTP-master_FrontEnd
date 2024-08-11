@@ -4,8 +4,6 @@ import { Seccion } from '../secciones-curso/secciones';
 import { ContenidoService } from './contenido-curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { AgregarContenidoCursoComponent } from './agregar-contenido-curso/agregar-contenido-curso.component';
-import { EditarContenidoCursoComponent } from './editar-contenido-curso/editar-contenido-curso.component';
 import Swal from 'sweetalert2';
 import { MessageService } from 'primeng/api';
 import { Usuario } from '../../../usuarios/usuarios';

@@ -29,8 +29,6 @@ import { SeccionService } from './core/cursos/detalles-curso/secciones-curso/sec
 import { ForoModule } from './core/comunidad/foro/foro.module';
 import { ForoComponent } from './core/comunidad/foro/foro.component';
 import { DropdownModule } from 'primeng/dropdown';
-import { AgregarContenidoCursoComponent } from './core/cursos/detalles-curso/contenido-curso/agregar-contenido-curso/agregar-contenido-curso.component';
-import { ContenidoCursoModule } from './core/cursos/detalles-curso/contenido-curso/agregar-contenido-curso/agregar-contenido-curso.module';
 import { ContenidoService } from './core/cursos/detalles-curso/contenido-curso/contenido-curso.service';
 import { DialogModule } from '@angular/cdk/dialog';
 import { DetallesCursoModule } from './core/cursos/detalles-curso/detalles-curso.module';
@@ -42,7 +40,6 @@ import { SafePipe } from './core/cursos/detalles-curso/detalles-curso-pipe';
     DashboardCursoPipe,
     DashboardCategoriacursosComponent,
     ForoComponent,
-    AgregarContenidoCursoComponent
     
   ],
   imports: [
@@ -60,7 +57,6 @@ import { SafePipe } from './core/cursos/detalles-curso/detalles-curso-pipe';
     CommonModule,
     SeccionesCursoModule,
     ForoModule,
-    ContenidoCursoModule,
     DetallesCursoModule,
     DropdownModule
   ],

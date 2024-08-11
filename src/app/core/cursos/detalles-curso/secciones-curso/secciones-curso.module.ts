@@ -1,8 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // If needed
+import { FormsModule,ReactiveFormsModule } from '@angular/forms'; // If needed
 import { SeccionesCursoComponent } from './secciones-curso.component';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextModule } from 'primeng/inputtext';
 
 const routes: Routes = [
   { path: '', component: SeccionesCursoComponent }
@@ -13,7 +19,14 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    ToastModule,
+    ButtonModule,
+    TableModule,
+    ReactiveFormsModule,
+    DialogModule,
+    DropdownModule,
+    InputTextModule,
   ],
   exports: [SeccionesCursoComponent,
   ]

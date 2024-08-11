@@ -6,6 +6,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasswordModule } from 'primeng/password';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -18,7 +19,8 @@ import { PasswordModule } from 'primeng/password';
     PasswordModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    ToastModule
   ]
 })
 export class AuthModule { }

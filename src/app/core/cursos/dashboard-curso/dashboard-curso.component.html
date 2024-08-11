@@ -1,11 +1,14 @@
-<div class="container">
-  <h1>BIENVENIDO A CURSOS</h1>
-
+<div class="card">
+  <div style="display: grid;">
+    <h1 class="font-bold" style="font-size: 2rem; margin-bottom: 1rem;">Busqueda de Cursos</h1>
+    <span style="font-size: 1.2rem; margin-left: 1rem;">En este apartado podrás buscar cursos de tu interés.</span>
+  </div>
   <!-- Barra de búsqueda de cursos -->
   <div class="row">
-    <div class="col">
+    <div class="col-12">
       <div class="form-group">
-        <input type="text" class="form-control" name="filterCurso" placeholder="Buscar curso" [(ngModel)]="searchTerm" (keydown.enter)="onEnter($event)">
+        <input type="text" class="form-control" name="filterCurso" placeholder="Buscar curso" [(ngModel)]="searchTerm"
+          (keydown.enter)="onEnter($event)" />
       </div>
     </div>
   </div>

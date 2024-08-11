@@ -1,21 +1,50 @@
 <div class="card">
-    <p-tabView>
-      <ng-container *ngFor="let seccion of secciones">
-        <p-tabPanel header="{{ seccion.nombre }}">
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
-                <div class="content-list">
-                  <ul>
-                    <li *ngFor="let item of contenido[seccion.idSeccion]">
-                      <h5>{{ item.titulo }}</h5>
-                      <p>{{ item.descripcion }}</p>
-                    </li>
-                  </ul>
+  <p-tabView>
+    <ng-container *ngFor="let seccion of secciones">
+      <p-tabPanel [header]="seccion.nombre">
+        <div class="row">
+          <div class="col-12">
+            <div class="content-list">
+              <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let item of contenido[seccion.idSeccion]">
+                  <p-card [header]="item.titulo" [subheader]="item.descripcion" [style]="{ width: '100%' }">
+                    <ng-container *ngIf="isImage(getFileUrl(item.urlArchivo)); else isPdfOrVideo">
+                      <img [src]="getFileUrl(item.urlArchivo)" alt="{{ item.titulo }}" class="card-img-top">
+                    </ng-container>
+                    <ng-template #isPdfOrVideo>
+                      <ng-container *ngIf="isPdf(getFileUrl(item.urlArchivo)); else video">
+                        <i class="pi pi-file-pdf"></i>
+                        <div>
+                          <button (click)="showModal(getFileUrl(item.urlArchivo))" class="card-link" aria-label="Vista Previa del PDF">Vista Previa</button>
+                          <button (click)="downloadFileInNewTab(getFileUrl(item.urlArchivo))" class="card-link" aria-label="Descargar PDF">Descargar PDF</button>
+                        </div>
+                      </ng-container>
+                      <ng-template #video>
+                        <ng-container *ngIf="isVideo(getFileUrl(item.urlArchivo))">
+                          <i class="pi pi-video"></i>
+                          <!--<video [src]="getFileUrl(item.urlArchivo)" controls class="card-video">
+                            Your browser does not support the video tag.
+                          </video>-->
+                          <div>
+                            <button (click)="showModal(getFileUrl(item.urlArchivo))" class="card-link" aria-label="Vista Previa del Video">Vista Previa</button>
+                            <button (click)="downloadFile(getFileUrl(item.urlArchivo))" class="card-link" aria-label="Descargar Video">Descargar Video</button>
+                          </div>
+                        </ng-container>
+                      </ng-template>
+                    </ng-template>
+                  </p-card>
                 </div>
               </div>
+            </div>
           </div>
-        </p-tabPanel>
-      </ng-container>
-    </p-tabView>
-  </div>
-  
+        </div>
+      </p-tabPanel>
+    </ng-container>
+  </p-tabView>
+</div>
+
+<p-dialog header="Visualización Previa" [(visible)]="displayModal" [modal]="true" [style]="{width: '800px', height: '600px'}" [closable]="true">
+  <div [innerHTML]="modalContent"></div>
+</p-dialog>
+
+

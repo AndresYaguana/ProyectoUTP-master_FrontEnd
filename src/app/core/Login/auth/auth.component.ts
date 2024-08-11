@@ -3,10 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Usuario } from '../../usuarios/usuarios';
+import { MessageService } from 'primeng/api';
 
 @Component({
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.scss']
+  styleUrls: ['./auth.component.scss'],
+  providers: [MessageService]
 })
 export class AuthComponent {
   loginFormulario: FormGroup;
@@ -15,7 +17,8 @@ export class AuthComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {
     this.loginFormulario = this.fb.group({
       user_email: [null, Validators.required],
@@ -23,7 +26,7 @@ export class AuthComponent {
     });
   }
 
-  enviarInicio(): void {
+  /*enviarInicio(): void {
     console.log('Form values:', this.loginFormulario.value);
     const email = this.loginFormulario.value.user_email;
     const password = this.loginFormulario.value.user_password;
@@ -43,6 +46,34 @@ export class AuthComponent {
         alert("Email o contraseña incorrectos");
       }
     );
+  }*/
+
+  enviarInicio(): void {
+    const email = this.loginFormulario.value.user_email;
+    const password = this.loginFormulario.value.user_password;
+    this.authService.login(email, password).subscribe(
+      response => {
+        if (response) {         
+          this.userLoggedIn.emit(response);
+          this.router.navigateByUrl('/Inicio');
+        } else {
+          this.showWarn();
+        }
+      },
+      error => {
+        this.showError(error);
+      }
+    );
   }
+
+  /* Mensaje de Datos Incorrectos */
+  showWarn() {
+    this.messageService.add({ severity: 'warn', summary: 'Datos Incorrectos', detail: 'Email o contraseña incorrectos' });
+  };
+
+  /* Mensaje de Error */
+  showError(error: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrio un error: ' + error });
+  };
   
 }

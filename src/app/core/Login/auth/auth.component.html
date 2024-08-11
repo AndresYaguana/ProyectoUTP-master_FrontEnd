@@ -1,15 +1,17 @@
-<div class="cnt-pr-1">
+<p-toast position="top-left" [life]="2000" [showTransformOptions]="'translateX(100%)'" [showTransitionOptions]="'1000ms'"
+    [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateY(100%)'"/>
+<div class="surface-ground h-screen w-screen flex align-items-center justify-content-center">
     <div class="cnt-scd-1">
         <img src="assets/layout/images/web-login-pao.png" alt="hight-imagen" style="width: 50%;">
         <div class="cnt-scd-2 surface-card">
             <div>
-                <h1 class="txt-pr-1">¡Bienvenido a UTP My Blog!</h1>
+                <h1 class="txt-pr-1">¡Bienvenido a UTP Community!</h1>
             </div>
             <div>
                 <img src="assets/layout/images/logo-utp.png" alt="logo" style="height: 90px; width: 8rem;">
             </div>
             <div style="display: flex; justify-content: flex-start;">
-                <p class="text-color-secondary mb-4">Para continuar, primero inicia sesión.</p>
+                <p class="text-color-secondary mb-4 ml-5">Para continuar, primero inicia sesión.</p>
             </div>
             <form [formGroup]="loginFormulario" (ngSubmit)="enviarInicio()">
                 <div style="padding-left: 2rem; padding-right: 2rem;">
@@ -24,13 +26,15 @@
                             formControlName="user_password">
                     </span>
                 </div>
-                <div class="mb-2">
+                <div class="mb-3">
                     <button type="submit" pButton label="Iniciar Sesión"></button>
                 </div>
             </form>
             <div>
-                <p class="text-color-secondary">¿Te olvidaste tu contraseña? <a routerLink="/Olvide-Contraseña">Aquí</a></p>
-                <p class="text-color-secondary">¿Aun no te has registrado? <a routerLink="/Registrate">Registrate</a></p>
+                <p class="text-color-secondary">¿Te olvidaste tu contraseña? <a routerLink="/Olvide-Contraseña">Aquí</a>
+                </p>
+                <p class="text-color-secondary">¿Aun no te has registrado? <a routerLink="/Registrate">Registrate</a>
+                </p>
             </div>
         </div>
     </div>

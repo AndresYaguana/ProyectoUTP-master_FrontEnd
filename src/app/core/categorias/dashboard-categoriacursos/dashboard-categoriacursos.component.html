@@ -1,19 +1,32 @@
-<div class="container">
-    <h1>BIENVENIDO A CURSOS</h1>
+<div class="card">
+  <div style="display: grid;">
+    <h1 class="font-bold" style="font-size: 2rem; margin-bottom: 1rem;">Busqueda de Cursos</h1>
+    <span style="font-size: 1.2rem; margin-left: 1rem;">En este apartado podrás buscar cursos de tu interés.</span>
+  </div>
+  <!-- Barra de búsqueda de cursos -->
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group">
+        <input type="text" class="form-control" name="filterCurso" placeholder="Buscar curso" [(ngModel)]="searchTerm"
+          (keydown.enter)="onEnter($event)" />
+      </div>
+    </div>
+  </div>
     
-    <div class="row">
-      <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let curso of cursos">
-        <div class="course-card">
-          <div class="course-image">
-            <img [src]="curso.urlImage" alt="{{ curso.nombre }}">
-          </div>
-          <div class="course-details">
-            <h3 class="course-title">{{ curso.nombre }}</h3>
-            <p class="course-description">{{ curso.descripcion }}</p>
-            <button class="btn btn-primary"(click)="entrarAlCurso(curso.idCurso)">Entrar al curso</button>
-          </div>
+  <div class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3 mb-4" *ngFor="let curso of filteredCursos">
+      <div class="course-card">
+        <div class="course-image">
+          <img [src]="curso.urlImage" alt="{{ curso.nombre }}">
+        </div>
+        <div class="course-details">
+          <h3 class="course-title">{{ curso.nombre }}</h3>
+          <p class="course-description">{{ curso.descripcion }}</p>
+          <button class="btn btn-primary" (click)="entrarAlCurso(curso.idCurso)">Entrar al curso</button>
         </div>
       </div>
     </div>
   </div>
+  
+
   

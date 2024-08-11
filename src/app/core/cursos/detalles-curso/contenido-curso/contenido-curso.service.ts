@@ -16,9 +16,21 @@ export class ContenidoService {
       return this.clienteHttp.get<Contenido[]>(this.urlBase);
     }
   
-    agregarContenido(contenido: Contenido): Observable<Object> {
+    /*agregarContenido(contenido: Contenido): Observable<Object> {
       return this.clienteHttp.post(this.urlBase, contenido);
-    }
+    }*/
+
+      agregarContenido(contenido: Contenido, file: File | null): Observable<any> {
+        const formData = new FormData();
+        formData.append('contenidoCurso', JSON.stringify(contenido));
+      
+        if (file) {
+          formData.append('file', file, file.name);
+        }
+      
+        return this.clienteHttp.post(this.urlBase, formData);
+      }
+      
     
     obtenerContenidoPorId(idContenido: number): Observable<Contenido> {
       return this.clienteHttp.get<Contenido>(`${this.urlBase}/${idContenido}`);

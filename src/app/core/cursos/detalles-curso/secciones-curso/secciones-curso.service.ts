@@ -25,11 +25,6 @@ export class SeccionService {
     } 
   
     editarSeccion(idSeccion: number, seccion: Seccion): Observable<any> {
-      // Establecer el usuario que modifica y la fecha de modificación
-      seccion.modificadoPor = 'U20244131';
-      seccion.fechaModificacion = new Date().toISOString();
-    
-      // Realizar la solicitud PUT al backend
       return this.clienteHttp.put(`${this.urlBase}/${idSeccion}`, seccion);
     }
     

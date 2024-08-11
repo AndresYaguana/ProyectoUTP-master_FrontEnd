@@ -15,12 +15,12 @@ import Swal from 'sweetalert2';
 export class RegistroComponent implements OnInit {
 
   registroFormulario: FormGroup = new FormGroup({});
-  tipousuarios: TipoUsuario[] = [];
+  //tipousuarios: TipoUsuario[] = [];
 
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
-    private tipoUsuariosServicio: TipoUsuarioService,
+    //private tipoUsuariosServicio: TipoUsuarioService,
     private router: Router
   ) {
     this.registroFormulario = this.fb.group({
@@ -28,17 +28,17 @@ export class RegistroComponent implements OnInit {
       password: [null, Validators.required],
       nombres: [null, Validators.required],
       apellidos: [null, Validators.required],
-      idTipousuario: [0, [Validators.required]],
+      //idTipousuario: [0, [Validators.required]],
       urlFoto: [null, Validators.required],
       universidad: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.obtenerTipoUsuarios();
+    //this.obtenerTipoUsuarios();
   };
 
-  obtenerTipoUsuarios(): void {
+  /*obtenerTipoUsuarios(): void {
     this.tipoUsuariosServicio.obtenerTipousuarioLista().subscribe({
       next: (tipousuarios) => {
         console.log('Tipos Usuarios obtenidos:', tipousuarios); // Verify the data
@@ -46,7 +46,7 @@ export class RegistroComponent implements OnInit {
       },
       error: (err) => console.error('Error obteniendo Tipos Usuarios:', err)
     });
-  }
+  }*/
 
   IniciarRegistroForm(): void {
     if (this.registroFormulario.valid) {
@@ -67,12 +67,12 @@ export class RegistroComponent implements OnInit {
         if (result.isConfirmed) {
           this.usuariosService.agregarUsuario(newUser).subscribe({
             next: (usuario) => {
-              console.log('Usuario registrado:', usuario);
+              //console.log('Usuario registrado:', usuario);
               Swal.fire("Registrado!", "El Usuario ha sido registrado exitosamente.", "success");
               this.router.navigate(['/']); // Redirigir al inicio u otra página después del registro
             },
             error: (err) => {
-              console.error('Error registrando usuario:', err);
+              //console.error('Error registrando usuario:', err);
               Swal.fire("Error", "Error al registrar usuario", "error");
             }
           });
@@ -81,7 +81,7 @@ export class RegistroComponent implements OnInit {
         }
       });
     } else {
-      console.error('Formulario no válido. Verifica los campos.');
+      //console.error('Formulario no válido. Verifica los campos.');
       Swal.fire("Formulario no válido", "Por favor verifica los campos del formulario.", "warning");
     }
   }

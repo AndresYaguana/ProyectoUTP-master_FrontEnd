@@ -110,44 +110,45 @@ export class AgregarContenidoCursoComponent implements OnInit {
   
   agregarContenido(): void {
     if (this.agregarFormulario.valid) {
-      console.log(this.agregarFormulario.value);
       Swal.fire({
-        title: "¿Quieres agregar esta nueva seccion?",
+        title: "¿Quieres agregar esta nueva sección?",
         showDenyButton: false,
         showCancelButton: true,
         confirmButtonText: "Guardar"
       }).then((result) => {
         if (result.isConfirmed) {
-      const nuevoContenido: Contenido = {
-        ...this.agregarFormulario.value,
-        creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
-        fechaCreacion: new Date().toISOString(),
-        curso: { idCurso: this.agregarFormulario.value.idCurso },
-        seccion: { idSeccion: this.agregarFormulario.value.idSeccion },
-        urlArchivo: this.selectedFile ? this.selectedFile.name : null
-      };
-
-      console.log('Contenido a enviar:', nuevoContenido);
-
-      this.contenidoServicio.agregarContenido(nuevoContenido).subscribe({
-        next: (contenido) => {
-          console.log('Contenido agregado:', contenido);
-          this.cerrar();
-        },
-        error: (err) => {
-          console.error('Error agregando Seccion:', err);
-          Swal.fire("Error", "Error al agregar Seccion", "error");
-          this.dialogRef.close();
+          const nuevoContenido: Contenido = {
+            ...this.agregarFormulario.value,
+            creadoPor: this.usuario?.email?.split('@')[0]?.toUpperCase(),
+            fechaCreacion: new Date().toISOString(),
+            curso: { idCurso: this.agregarFormulario.value.idCurso },
+            seccion: { idSeccion: this.agregarFormulario.value.idSeccion },
+            urlArchivo: this.selectedFile ? this.selectedFile.name : null
+          };
+  
+          console.log('Contenido a enviar:', nuevoContenido);
+  
+          this.contenidoServicio.agregarContenido(nuevoContenido, this.selectedFile).subscribe({
+            next: (contenido) => {
+              console.log('Contenido agregado:', contenido);
+              this.cerrar();
+            },
+            error: (err) => {
+              console.error('Error agregando Sección:', err);
+              Swal.fire("Error", "Error al agregar Sección", "error");
+              this.dialogRef.close();
+            }
+          });
+        } else if (result.isDenied) {
+          Swal.fire("Cambios no guardados", "", "info");
         }
-        });
-      } else if (result.isDenied) {
-        Swal.fire("Cambios no guardados", "", "info");
-      }
-    });
-  } else {
-    console.error('Formulario no válido. Verifica los campos.');
+      });
+    } else {
+      console.error('Formulario no válido. Verifica los campos.');
+    }
   }
-}
+  
+  
 
   cerrar() {
     this.dialogRef.close();

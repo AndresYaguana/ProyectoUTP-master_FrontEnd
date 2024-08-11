@@ -1,42 +1,139 @@
-
-<div class="container-fluid">
-  <div class="text-center mt-4">
-    <h3> GESTION DE CONTENIDOS - CURSOS </h3>
+<p-toast></p-toast>
+<div class="card">
+  <div style="margin: 1rem;">
+    <h3>GESTION DE CONTENIDOS - CURSOS</h3>
   </div>
-
-  <!-- Botón para abrir el modal de agregar nuevo usuario -->
- <div class="text-center mt-4">
-    <button class="btn btn-primary" (click)="abrirModalAgregarContenido()">Agregar Contenido</button>
- </div>
-
-  <!-- Tabla de usuarios -->
-  <table class="table table-striped table-hover mt-3">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Titulo</th>
-        <th scope="col">Descripcion</th>
-        <th scope="col">Archivo</th>
-        <th scope="col">Usuario</th>
-        <th scope="col">Creador</th>
-        <th scope="col" class="text-center">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let contenido of contenido">
-        <td>{{ contenido.idContenido }}</td>
-        <td>{{ contenido.titulo }}</td>
-        <td>{{ contenido.descripcion }}</td>
-        <td>{{ contenido.urlArchivo }}</td>
-        <td>{{ contenido.creadoPor }}</td>
-        <td>{{ contenido.fechaCreacion }}</td>
-        <td class="text-center">
-          <div class="btn-group" role="group" aria-label="Acciones">
-            <button  (click)="editarSeccion(contenido.idContenido)" class="btn btn-warning btn-sm">Editar</button>
-            <button  (click)="eliminarSeccion(contenido.idContenido)"class="btn btn-danger btn-sm">Eliminar</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-12">
+    <div class="flex flex-wrap align-items-center justify-content-between mb-3 gap-3">
+      <h5 class="m-0">Tabla de Contenidos - Cursos</h5>
+      <p-button icon="pi pi-plus" severity="info" label="Agregar Contenidos" (click)="OpenAgregar()"></p-button>
+    </div>
+    <p-table [value]="contenido" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
+      [showCurrentPageReport]="true" currentPageReportTemplate="{last} de {totalRecords} Registros">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Curso</th>
+          <th style="text-align: center;">Categoria</th>
+          <th style="text-align: center;">Titulo</th>
+          <th style="text-align: center;">UrlArchivo</th>
+          <th style="text-align: center;">Usuario de Creación</th>
+          <th style="text-align: center;">Fecha de Creación</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-contenido>
+        <tr>
+          <td style="width: 8%; text-align: center;">{{ contenido.idContenido }}</td>
+          <td style="width: 8%; text-align: center;">{{ contenido.cursoNombre }}</td>
+          <td style="width: 8%; text-align: center;">{{ contenido.seccionNombre }}</td>
+          <td style="width: 12%; text-align: center;">{{ contenido.titulo }}</td>
+          <td style="width: 30%; text-align: center;">{{ contenido.urlArchivo }}</td>
+          <td style="width: 10%; text-align: center;">{{ contenido.creadoPor }}</td>
+          <td style="width: 10%; text-align: center;">{{ contenido.fechaCreacion }}</td>
+          <td style="width: 20%; text-align: center;">
+            <div class="btn-group" role="group" aria-label="Acciones"
+              style="display: flex; justify-content: space-evenly;">
+             <!-- <p-button (onClick)="OpenModificar(contenido.idContenido)" size="small" severity="warning"
+                icon="pi pi-pencil" label="Modificar"></p-button>-->
+              <p-button (onClick)="eliminarContenido(contenido.idContenido)" size="small" severity="danger"
+                icon="pi pi-trash" label="Eliminar"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5">No se han encontrado registros.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
+
+
+<!-- UI de Agregar Categoria -->
+<p-dialog header="Agregar Nueva Categoria" [(visible)]="AgregarDialog" [modal]="true" [style]="{ width: '50rem' }">
+  <ng-template pTemplate="content">
+    <form [formGroup]="agregarFormulario">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-12">
+          <label for="idCurso">Curso</label>
+          <p-dropdown formControlName="idCurso" [options]="cursos" optionLabel="nombre" optionValue="idCurso" (onChange)="onCursoChange()"></p-dropdown>
+          </div>
+        <div class="field col-12 md:col-12">
+          <label for="idSeccion">Sección</label>
+          <p-dropdown formControlName="idSeccion" [options]="secciones" optionLabel="nombre" optionValue="idSeccion" (onChange)="onSeccionChange()"></p-dropdown>
+          </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="titulo">Titulo</label>
+          <input pInputText formControlName="titulo" type="text" id="titulo" required />
+          <div *ngIf="agregarFormulario.get('titulo')?.errors?.['required'] && agregarFormulario.get('titulo')?.touched" class="text-danger">Titulo es requerido.</div>
+        </div>
+
+        <div class="field col-12 md:col-12" >
+          <label htmlFor="descripcion">Descripcion</label>
+          <input pInputText formControlName="descripcion" type="text" id="descripcion" required />
+          <div *ngIf="agregarFormulario.get('descripcion')?.errors?.['required'] && agregarFormulario.get('descripcion')?.touched" class="text-danger">Descripcion es requerido.</div>
+        </div>
+
+        <div class="field col-12 md:col-12" >
+          <label for="urlArchivo">URL Archivo</label>
+          <input id="urlArchivo" type="file" (change)="onFileChange($event)" pInputText formControlName="urlArchivo" >
+          <small class="p-error" *ngIf="fileError">{{ fileError }}</small>
+          </div>
+
+        <div class="ml-3 mr-3 mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado" required>
+          <div
+            *ngIf="agregarFormulario.get('habilitado')?.errors?.['required'] && agregarFormulario.get('habilitado')?.touched"
+            class="text-danger">Habilitado es requerido.</div>
+
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <form [formGroup]="agregarFormulario" (ngSubmit)="agregarContenido()">
+      <p-button type="submit" label="Agregar" icon="pi pi-check" [outlined]="true" severity="success" />
+      <p-button (onClick)="CloseAgregar()" label="Cancelar" icon="pi pi-times" [text]="true" severity="danger" />
+    </form>
+  </ng-template>
+</p-dialog>
+
+<!-- UI de Modificar Categoria -->
+<!--<p-dialog header="Modificar Categoria" [(visible)]="ModificarDialog" [modal]="true" [style]="{ width: '50rem' }">
+  <ng-template pTemplate="content">
+    <form [formGroup]="modificarFormulario">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-12">
+          <label htmlFor="nombre">Nombre de la Categoria</label>
+          <input pInputText formControlName="nombre" type="text" id="nombre" required />
+          <div
+            *ngIf="modificarFormulario.get('nombre')?.errors?.['required'] && modificarFormulario.get('nombre')?.touched"
+            class="text-danger">Nombre es requerido.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="ruta">Ruta</label>
+          <input pInputText formControlName="ruta" type="text" id="ruta" required />
+          <div *ngIf="modificarFormulario.get('ruta')?.errors?.['required'] && modificarFormulario.get('ruta')?.touched"
+            class="text-danger">Ruta es requerido.</div>
+        </div>
+        <div class="ml-3 mr-3 mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado" required>
+          <div
+            *ngIf="modificarFormulario.get('habilitado')?.errors?.['required'] && modificarFormulario.get('habilitado')?.touched"
+            class="text-danger">Habilitado es requerido.</div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <form [formGroup]="modificarFormulario" (ngSubmit)="ModificarCategoria()">
+      <p-button type="submit" label="Modificar" icon="pi pi-check" [outlined]="true" severity="success" />
+      <p-button (onClick)="CloseModificar()" label="Cancelar" icon="pi pi-times" [text]="true" severity="danger" />
+    </form>
+  </ng-template>
+</p-dialog>-->

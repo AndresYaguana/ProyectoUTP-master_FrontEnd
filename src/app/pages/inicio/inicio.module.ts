@@ -10,6 +10,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InicioComponent } from './inicio.component';
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { InicioComponent } from './inicio.component';
     FormsModule,
     ReactiveFormsModule,
     InicioRoutingModule,
-    CommonModule
+    CommonModule,
+    DividerModule
   ]
 })
 export class InicioModule { }

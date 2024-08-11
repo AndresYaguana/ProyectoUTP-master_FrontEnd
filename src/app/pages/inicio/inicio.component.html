@@ -1,35 +1,40 @@
 <div class="homepage">
-    <div class="hero-section">
-      <div class="hero-content">
-        <h1>Bienvenido al Catálogo de Cursos</h1>
-        <p>Es un catálogo de cursos para estudiantes de primeros ciclos de la universidad.</p>
-        
-        <div class="hero-buttons">
-          <a routerLink="/secciones" class="btn-primary">Explorar Secciones</a>
-          <a routerLink="/cursos" class="btn-secondary">Buscar Cursos</a>
-        </div>
-      </div>
+  <div class="grid grid-nogutter surface-section text-800" style="margin-bottom: 2rem;">
+    <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
+      <section>
+        <span class="block text-7xl font-bold mb-3">UTP COMMUNITY</span>
+        <div class="text-6x1 text-primary font-bold mb-3">Dedicado a los estudiantes de primeros Ciclos</div>
+        <p class="mt-0 mb-4 text-700 line-height-2">¿Tienes problemas para aprender? Explora nuestro catálogo de cursos
+          o pregúntale a la comunidad.</p>
+
+        <button pButton pRipple label="Cursos" type="button" icon="pi pi-book" class="mr-3 p-button-info"></button>
+        <button pButton pRipple label="Comunidad" type="button" icon="pi pi-comments" class="p-button-success"></button>
+      </section>
     </div>
-  
-    <div class="cta-container">
-      <h2>¿Qué deseas hacer?</h2>
-      <div class="cta-cards">
-        <div class="cta-card">
-          <h3>Explorar Secciones</h3>
-          <p>Descubre las secciones disponibles en nuestro catálogo.</p>
-          <a routerLink="/secciones" class="btn">Ver Secciones</a>
-        </div>
-        <div class="cta-card">
-          <h3>Buscar Cursos</h3>
-          <p>Encuentra los cursos que más te interesan.</p>
-          <a routerLink="/cursos" class="btn">Ver Cursos</a>
-        </div>
-        <div class="cta-card">
-          <h3>Contacta con Nosotros</h3>
-          <p>Si tienes preguntas o necesitas ayuda, no dudes en contactarnos.</p>
-          <a routerLink="/contacto" class="btn">Contacto</a>
-        </div>
+    <div class="col-12 md:col-6 overflow-hidden">
+      <img src="assets/layout/images/hero-1.png" alt="Image" class="md:ml-auto block md:h-full"
+        style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)">
+    </div>
+
+  </div>
+  <div class="cta-container" style="margin-bottom: 1rem;">
+    <h2>¿Qué deseas hacer?</h2>
+    <div class="cta-cards" style="margin-bottom: 1rem;">
+      <div class="cta-card">
+        <h3>Explorar Secciones</h3>
+        <p>Descubre las secciones disponibles en nuestro catálogo.</p>
+        <a routerLink="/secciones" class="btn">Ver Secciones</a>
+      </div>
+      <div class="cta-card">
+        <h3>Buscar Cursos</h3>
+        <p>Encuentra los cursos que más te interesan.</p>
+        <a routerLink="/cursos" class="btn">Ver Cursos</a>
+      </div>
+      <div class="cta-card">
+        <h3>Contacta con Nosotros</h3>
+        <p>Si tienes preguntas o necesitas ayuda, no dudes en contactarnos.</p>
+        <a routerLink="/contacto" class="btn">Contacto</a>
       </div>
     </div>
   </div>
-  
+</div>

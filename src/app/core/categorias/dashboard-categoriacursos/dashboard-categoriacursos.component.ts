@@ -10,6 +10,8 @@ import { CursosService } from '../../cursos/cursos.service';
 })
 export class DashboardCategoriacursosComponent implements OnInit {
   cursos: Curso[] = [];
+  filteredCursos: Curso[] = [];
+  searchTerm: string = '';
   idCategoria: number = 0;
 
   constructor(
@@ -22,6 +24,7 @@ export class DashboardCategoriacursosComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.idCategoria = +params['idCategoria'];
       this.obtenerCursosPorCategoria();
+      this.filteredCursos = this.cursos;
     });
   }
 
@@ -30,6 +33,7 @@ export class DashboardCategoriacursosComponent implements OnInit {
       .subscribe(
         cursos => {
           this.cursos = cursos;
+          this.filteredCursos = cursos; // Update filteredCursos after fetching data
           console.log('Cursos obtenidos por categoría:', this.cursos);
         },
         error => {
@@ -37,7 +41,21 @@ export class DashboardCategoriacursosComponent implements OnInit {
         }
       );
   }
+
   entrarAlCurso(idCurso: number): void {
     this.router.navigate(['/cursos', idCurso]);
+  }
+
+  filterCourses(): void {
+    this.filteredCursos = this.cursos.filter(curso => {
+      const lowercaseTitle = curso.nombre.toLowerCase();
+      return lowercaseTitle.includes(this.searchTerm.toLowerCase());
+    });
+  }
+
+  onEnter(event: Event): void {
+    if ((event as KeyboardEvent).key === 'Enter') {
+      this.filterCourses();
+    }
   }
 }

@@ -4,10 +4,10 @@
         <h1 class="font-bold text-2xl mt-0 mb-2">REGISTRATE</h1>
         <p class="text-color-secondary mb-4">Bienvenido a la Comunidad de <strong>UTP MyBlog</strong>, registrate para continuar.</p>
   
-        <span class="p-input-icon-left mb-4">
+        <!--<span class="p-input-icon-left mb-4">
           <p-dropdown [options]="tipousuarios" formControlName="idTipousuario" optionLabel="nombre" placeholder="Selecciona Tipo Usuario" [style]="{'width':'100%'}"></p-dropdown>
-          <!---<div *ngIf="agregarFormulario.get('idTipousuario')?.errors?.['required'] && agregarFormulario.get('idTipousuario')?.touched" class="text-danger">Tipo Usuario es requerido.</div>-->
-        </span>
+          <div *ngIf="agregarFormulario.get('idTipousuario')?.errors?.['required'] && agregarFormulario.get('idTipousuario')?.touched" class="text-danger">Tipo Usuario es requerido.</div>
+        </span>-->
         <span class="p-input-icon-left mb-4">
           <i class="pi pi-envelope"></i>
           <input formControlName="email" type="text" pInputText placeholder="Correo Electrónico" class="w-full">

@@ -1,41 +1,164 @@
-
-<div class="container-fluid">
-  <div class="text-center mt-4">
-    <h3> GESTION DE CURSOS PARA ESTUDIANTES </h3>
-    
+<p-toast></p-toast>
+<div class="card">
+  <div style="margin: 1rem;">
+    <h3>GESTIÓN DE CURSOS PARA ESTUDIANTES</h3>
   </div>
-
-  <!-- Botón para abrir el modal de agregar nuevo usuario -->
- <div class="text-center mt-4">
-    <button class="btn btn-primary" (click)="abrirModalAgregarCurso()">Agregar Curso</button>
- </div>
-
-  <!-- Tabla de usuarios -->
-  <table class="table table-striped table-hover mt-3">
-    <thead class="table-dark">
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Ruta</th>
-        <th scope="col">Usuario</th>
-        <th scope="col">Creado</th>
-        <th scope="col" class="text-center">Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let curso of cursos">
-        <td>{{ curso.idCurso }}</td>
-        <td>{{ curso.nombre }}</td>
-        <td>{{ curso.ruta }}</td>
-        <td>{{ curso.creadoPor }}</td>
-        <td>{{ curso.fechaCreacion }}</td>
-        <td class="text-center">
-          <div class="btn-group" role="group" aria-label="Acciones">
-            <button  (click)="editarCursos(curso.idCurso)" class="btn btn-warning btn-sm">Editar</button>
-            <button  (click)="eliminarCursos(curso.idCurso)" class="btn btn-danger btn-sm">Eliminar</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="col-12">
+    <div class="flex flex-wrap align-items-center justify-content-between mb-3 gap-3">
+      <h5 class="m-0">Tabla de cursos</h5>
+      <p-button icon="pi pi-plus" severity="info" label="Agregar Curso" (click)="OpenAgregar()"></p-button>
+    </div>
+    <p-table [value]="cursos" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '50rem' }"
+      [showCurrentPageReport]="true" currentPageReportTemplate="{last} de {totalRecords} Registros">
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="text-align: center;">ID</th>
+          <th style="text-align: center;">Nombre del Curso</th>
+          <th style="text-align: center;">Ruta</th>
+          <th style="text-align: center;">Usuario de Creación</th>
+          <th style="text-align: center;">Fecha de Creación</th>
+          <th style="text-align: center;">Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-curso>
+        <tr>
+          <td style="width: 8%; text-align: center;">{{ curso.idCurso }}</td>
+          <td style="width: 12%; text-align: center;">{{ curso.nombre }}</td>
+          <td style="width: 40%; text-align: center;">{{ curso.ruta }}</td>
+          <td style="width: 10%; text-align: center;">{{ curso.creadoPor }}</td>
+          <td style="width: 10%; text-align: center;">{{ curso.fechaCreacion }}</td>
+          <td style="width: 20%; text-align: center;">
+            <div class="btn-group" role="group" aria-label="Acciones"
+              style="display: flex; justify-content: space-evenly;">
+              <p-button (onClick)="OpenModificar(curso.idCurso)" size="small" severity="warning" icon="pi pi-pencil"
+                label="Modificar"></p-button>
+              <p-button (onClick)="eliminarCursos(curso.idCurso)" size="small" severity="danger" icon="pi pi-trash"
+                label="Eliminar"></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="10">No se han encontrado registros.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 </div>
+
+
+<!-- UI de Agregar Curso -->
+<p-dialog header="Agregar Nuevo Curso" [(visible)]="AgregarDialog" [modal]="true" [style]="{ width: '50rem' }">
+  <ng-template pTemplate="content">
+    <form [formGroup]="agregarFormulario">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-8">
+          <label htmlFor="categoria">Categoría</label>
+          <p-dropdown formControlName="idCategoria" id="categoria" [options]="categorias" optionLabel="nombre"
+            optionValue="idCategoria"></p-dropdown>
+          <div
+            *ngIf="agregarFormulario.get('idCategoria')?.errors?.['required'] && agregarFormulario.get('idCategoria')?.touched"
+            class="text-danger">Categoría es requerida.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="nombre">Nombre del Curso</label>
+          <input pInputText formControlName="nombre" type="text" id="nombre" required />
+          <div *ngIf="agregarFormulario.get('nombre')?.errors?.['required'] && agregarFormulario.get('nombre')?.touched"
+            class="text-danger">Nombre es requerido.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="ruta">Ruta</label>
+          <input pInputText formControlName="ruta" type="text" id="ruta" required />
+          <div *ngIf="agregarFormulario.get('ruta')?.errors?.['required'] && agregarFormulario.get('ruta')?.touched"
+            class="text-danger">Ruta es requerida.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="imagen">URL de Imagen</label>
+          <input pInputText formControlName="urlImage" type="text" id="imagen" required />
+          <div
+            *ngIf="agregarFormulario.get('urlImage')?.errors?.['required'] && agregarFormulario.get('urlImage')?.touched"
+            class="text-danger">URL de imagen es requerido.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="descripcion">Descripción</label>
+          <textarea pInputTextarea formControlName="descripcion" type="text" id="descripcion" required></textarea>
+          <div
+            *ngIf="agregarFormulario.get('descripcion')?.errors?.['required'] && agregarFormulario.get('descripcion')?.touched"
+            class="text-danger">Descripción es requerida.</div>
+        </div>
+        <div class="ml-3 mr-3 mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado" required>
+          <div
+            *ngIf="agregarFormulario.get('habilitado')?.errors?.['required'] && agregarFormulario.get('habilitado')?.touched"
+            class="text-danger">Habilitado es requerido.</div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <form [formGroup]="agregarFormulario" (ngSubmit)="agregarCurso()">
+      <p-button type="submit" label="Agregar" icon="pi pi-check" [outlined]="true" severity="success" />
+      <p-button (onClick)="CloseAgregar()" label="Cancelar" icon="pi pi-times" [text]="true" severity="danger" />
+    </form>
+  </ng-template>
+</p-dialog>
+
+<!-- UI de Modificar Curso -->
+<p-dialog header="Modificar Curso" [(visible)]="ModificarDialog" [modal]="true" [style]="{ width: '50rem' }">
+  <ng-template pTemplate="content">
+    <form [formGroup]="modificarFormulario">
+      <div class="p-fluid p-formgrid grid">
+        <div class="field col-12 md:col-8">
+          <label htmlFor="categoria">Categoría</label>
+          <p-dropdown formControlName="idCategoria" id="categoria" [options]="categorias" optionLabel="nombre"
+            optionValue="idCategoria"></p-dropdown>
+          <div
+            *ngIf="modificarFormulario.get('idCategoria')?.errors?.['required'] && modificarFormulario.get('idCategoria')?.touched"
+            class="text-danger">Categoría es requerida.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="nombre">Nombre del Curso</label>
+          <input pInputText formControlName="nombre" type="text" id="nombre" required />
+          <div
+            *ngIf="modificarFormulario.get('nombre')?.errors?.['required'] && modificarFormulario.get('nombre')?.touched"
+            class="text-danger">Nombre es requerido.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="ruta">Ruta</label>
+          <input pInputText formControlName="ruta" type="text" id="ruta" required />
+          <div *ngIf="modificarFormulario.get('ruta')?.errors?.['required'] && modificarFormulario.get('ruta')?.touched"
+            class="text-danger">Ruta es requerida.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="imagen">URL de Imagen</label>
+          <input pInputText formControlName="urlImage" type="text" id="imagen" required />
+          <div
+            *ngIf="modificarFormulario.get('urlImage')?.errors?.['required'] && modificarFormulario.get('urlImage')?.touched"
+            class="text-danger">URL de imagen es requerido.</div>
+        </div>
+        <div class="field col-12 md:col-12">
+          <label htmlFor="descripcion">Descripción</label>
+          <textarea pInputTextarea formControlName="descripcion" type="text" id="descripcion" required></textarea>
+          <div
+            *ngIf="modificarFormulario.get('descripcion')?.errors?.['required'] && modificarFormulario.get('descripcion')?.touched"
+            class="text-danger">Descripción es requerida.</div>
+        </div>
+        <div class="ml-3 mr-3 mb-3">
+          <label for="inputHabilitado" class="form-check-label">Habilitado</label>
+          <input type="checkbox" class="form-check-input" id="inputHabilitado" formControlName="habilitado" required>
+          <div
+            *ngIf="modificarFormulario.get('habilitado')?.errors?.['required'] && modificarFormulario.get('habilitado')?.touched"
+            class="text-danger">Habilitado es requerido.</div>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <form [formGroup]="modificarFormulario" (ngSubmit)="ModificarCurso()">
+      <p-button type="submit" label="Modificar" icon="pi pi-check" [outlined]="true" severity="success" />
+      <p-button (onClick)="CloseModificar()" label="Cancelar" icon="pi pi-times" [text]="true" severity="danger" />
+    </form>
+  </ng-template>
+</p-dialog>

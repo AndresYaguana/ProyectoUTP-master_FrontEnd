@@ -48,3 +48,48 @@
     margin: 5px 0 0;
   }
   
+  .section-card {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-img-top {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-video {
+    width: 100%;
+    height: auto;
+  }
+  
+  .card-body {
+    padding: 10px;
+  }
+  
+  .card-title {
+    font-size: 1.1em;
+  }
+  
+  .card-text {
+    font-size: 0.9em;
+  }
+  
+  .card-link {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .pi {
+    font-size: 2em;
+    display: block;
+    margin: 10px 0;
+  }
